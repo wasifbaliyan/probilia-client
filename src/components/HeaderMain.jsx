@@ -40,9 +40,8 @@ export default function HeaderMain() {
             </a>
           </div>
         </div>
-        <div>
+        <div className="mx-2">
           <svg
-            className="mx-2"
             xmlns="http://www.w3.org/2000/svg"
             width="20"
             height="20"

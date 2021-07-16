@@ -3,18 +3,25 @@ import React from "react";
 export default function Footer() {
   return (
     <footer className="bg-gray-100 py-10">
-      <div className="grid grid-cols-auto max-w-screen-xl mx-auto px-2">
-        <div className="col-start-1 col-end-4"></div>
-        <div className="col-start-4 col-end-13">
-          <div className="grid grid-cols-auto">
-            <div className="col-start-1 col-end-9">
-              <h3 className="font-medium">
+      <div className="grid grid-cols-4 max-w-screen-xl mx-auto px-2">
+        <div className="col-span-1"></div>
+        <div className="col-span-3">
+          <div className="grid grid-cols-3">
+            <div className="col-span-2">
+              <h3 className="font-medium text-sm">
                 Stay in the know of our latest arrivals, receive inspiration and
                 styling tips along with special offers!
               </h3>
+              <div className="w-full pt-6 pb-14">
+                <input
+                  className="w-2/3 py-3 px-3 border-2 rounded border-gray-500"
+                  type="text"
+                  placeholder="Enter your email address"
+                />
+              </div>
             </div>
-            <div className="col-start-9 col-end-13">
-              <div className="flex justify-between items-center">
+            <div className="col-span-1">
+              <div className="h-full flex justify-between items-center">
                 <h3>Follow us:</h3>
                 <div className="flex">
                   <div className="mx-2">
@@ -69,60 +76,86 @@ export default function Footer() {
               </div>
             </div>
           </div>
-          <div className="flex justify-between">
-            <div>
+          <div className="grid grid-cols-5 py-10">
+            <div className="col-span-2">
               <h1 className="text-3xl font-medium">Furninshing</h1>
               <h1 className="pl-4 text-3xl font-medium">a world of</h1>
               <h1 className="text-3xl font-medium">Your own</h1>
             </div>
-            <div>
-              <div>
+            <div className="col-span-3 grid grid-cols-2">
+              <div className="col-span-1">
                 <h3 className="text-lg font-medium">Company</h3>
                 <ul>
-                  <li>
+                  <li className="text-sm py-1">
                     <a href="/">Covid-19</a>
                   </li>
-                  <li>
+                  <li className="text-sm py-1">
                     <a href="/">About Us</a>
                   </li>
-                  <li>
+                  <li className="text-sm py-1">
                     <a href="/">Find a Store</a>
                   </li>
-                  <li>
+                  <li className="text-sm py-1">
                     <a href="/">Careers</a>
                   </li>
-                  <li>
+                  <li className="text-sm py-1">
                     <a href="/">Foundation</a>
                   </li>
-                  <li>
+                  <li className="text-sm py-1">
                     <a href="/">B2B</a>
                   </li>
                 </ul>
               </div>
+              <div className="col-span-1">
+                <h3 className="text-lg font-medium">Assistance</h3>
+                <ul>
+                  <li className="text-sm py-1">
+                    <a href="/">Frequently Asked Questions</a>
+                  </li>
+                  <li className="text-sm py-1">
+                    <a href="/">Customer Service</a>
+                  </li>
+                  <li className="text-sm py-1">
+                    <a href="/">Contact Us</a>
+                  </li>
+                  <li className="text-sm py-1">
+                    <a href="/">Shipping Options</a>
+                  </li>
+                  <li className="text-sm py-1">
+                    <a href="/">Exchange & Return</a>
+                  </li>
+                  <li className="text-sm py-1">
+                    <a href="/">Protection Plan</a>
+                  </li>
+                  <li className="text-sm py-1">
+                    <a href="/">Maintenace Plan</a>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <div>
-              <h3 className="text-lg font-medium">Assistance</h3>
-              <ul>
-                <li>
-                  <a href="/">Frequently Asked Questions</a>
+          </div>
+          <div className="grid grid-cols-3 py-5">
+            <div className="col-span-1">
+              <div className="text-xs">Mobilia © All Rights Reserved 2021</div>
+            </div>
+            <div className="col-span-2">
+              <div className="text-xs italic">
+                Mobilia is a Canadian retailer of modern furniture for the home.
+                We strive to inspire and guide consumers in their purchases with
+                our 4 worlds of style
+              </div>
+              <ul className="flex text-xs py-3">
+                <li className="mr-3">
+                  <a href="/">Privacy Policy</a>
                 </li>
-                <li>
-                  <a href="/">Customer Service</a>
+                <li className="mr-3">
+                  <a href="/">Terms of use</a>
                 </li>
-                <li>
-                  <a href="/">Contact Us</a>
+                <li className="mr-3">
+                  <a href="/">Contest</a>
                 </li>
-                <li>
-                  <a href="/">Shipping Options</a>
-                </li>
-                <li>
-                  <a href="/">Exchange & Return</a>
-                </li>
-                <li>
-                  <a href="/">Protection Plan</a>
-                </li>
-                <li>
-                  <a href="/">Maintenace Plan</a>
+                <li className="mr-3">
+                  <a href="/">Sitemap</a>
                 </li>
               </ul>
             </div>
