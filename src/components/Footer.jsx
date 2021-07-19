@@ -30,7 +30,7 @@ export default function Footer() {
                 </h3>
                 <div className="w-full pt-6 pb-14">
                   <input
-                    className="w-2/3 py-3 px-3 border-2 rounded border-gray-500"
+                    className="w-2/3 py-2 px-3 border-2  border-gray-500"
                     type="text"
                     placeholder="Enter your email address"
                   />
@@ -95,7 +95,7 @@ export default function Footer() {
             <div className="grid grid-cols-5 py-10">
               <div className="col-span-2">
                 <h1 className="text-3xl font-medium">Furninshing</h1>
-                <h1 className="pl-4 text-3xl font-medium">a world of</h1>
+                <h1 className="pl-4 text-3xl font-medium py-2">a world of</h1>
                 <h1 className="text-3xl font-medium">Your own</h1>
               </div>
               <div className="col-span-3 grid grid-cols-2">
