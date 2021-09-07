@@ -5,7 +5,7 @@ import ProductList from "./pages/ProductList";
 function App() {
   return (
     <Layout>
-      {/* <Home /> */}
+      <Home />
       <ProductList />
     </Layout>
   );

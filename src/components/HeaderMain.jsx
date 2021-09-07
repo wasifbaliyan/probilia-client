@@ -3,7 +3,7 @@ import { ReactComponent as Logo } from "../assets/logo.svg";
 
 export default function HeaderMain() {
   return (
-    <div className="bg-gray-100">
+    <div className="bg-gray-100 ">
       <nav className="flex justify-between items-center py-6 max-w-screen-xl mx-auto">
         <div className="px-2">
           <Logo />
