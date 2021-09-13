@@ -7,7 +7,7 @@ export default function Layout({ children }) {
     <>
       <Header />
       <main className="bg-gray-100">
-        <div className="max-w-screen-xl mx-auto py-10">{children}</div>
+        <div>{children}</div>
       </main>
       <Footer />
     </>
