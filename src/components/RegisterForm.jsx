@@ -2,16 +2,31 @@ import React from "react";
 
 export default function RegisterForm() {
   return (
-    <div>
-      <div className="my-4">
-        <input type="text" placeholder="name" />
+    <form>
+      <div className="">
+        <input
+          className="w-full p-2 my-3 border-2 border-gray-300"
+          type="text"
+          placeholder="Full Name"
+        />
       </div>
-      <div className="my-4">
-        <input type="email" placeholder="email" />
+      <div className="">
+        <input
+          className="w-full p-2 my-3 border-2 border-gray-300"
+          type="email"
+          placeholder="Email Address"
+        />
       </div>
-      <div className="my-4">
-        <input type="password" placeholder="password" />
+      <div className="">
+        <input
+          className="w-full p-2 my-3 border-2 border-gray-300"
+          type="password"
+          placeholder="Your Password"
+        />
       </div>
-    </div>
+      <button className="w-full uppercase text-sm font-medium hover:bg-red-500 bg-black text-white py-3 transition-all my-4">
+        Register
+      </button>
+    </form>
   );
 }
