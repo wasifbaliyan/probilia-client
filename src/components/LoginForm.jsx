@@ -17,8 +17,12 @@ export default function LoginForm() {
           placeholder="Your Password"
         />
       </div>
-      <button className="w-full uppercase text-sm font-medium hover:bg-red-500 bg-black text-white py-3 transition-all my-4">
+      <button className="w-full uppercase text-sm font-medium border-2 border-black bg-black text-white b py-3 transition-all my-4">
         Login
+      </button>
+      <div className="uppercase text-center">or</div>
+      <button className="w-full uppercase text-sm font-medium text-red-500 border-2 border-red-500 py-3 transition-all my-4">
+        Login as guest
       </button>
     </form>
   );
