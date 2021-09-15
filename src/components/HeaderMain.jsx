@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import { ReactComponent as Logo } from "../assets/logo.svg";
 
 export default function HeaderMain() {
@@ -10,9 +11,9 @@ export default function HeaderMain() {
         </div>
         <div className="flex">
           <div>
-            <a className="mx-2 uppercase text-sm" href="/">
+            <NavLink to="/products" className="mx-2 uppercase text-sm" href="/">
               Living Room
-            </a>
+            </NavLink>
           </div>
           <div>
             <a className="mx-2 uppercase text-sm" href="/">
