@@ -8,9 +8,9 @@ export default function LoginForm() {
   const history = useHistory();
   const dispatch = useDispatch();
   const { isLoggedIn, status } = useSelector((state) => state.auth);
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    await dispatch(loginUser(loginData));
+    dispatch(loginUser(loginData));
   };
 
   useEffect(() => {

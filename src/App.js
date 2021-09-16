@@ -5,6 +5,7 @@ import Layout from "./components/Layout";
 import PrivateRoute from "./components/PrivateRoute";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import ProductDetails from "./pages/ProductDetails";
 import ProductList from "./pages/ProductList";
 import { setAuth } from "./redux/authSlice";
 
@@ -20,7 +21,7 @@ function App() {
     <Layout>
       <Switch>
         <Route path="/login" component={Login} />
-        {/* <Route path="/products" component={ProductList} /> */}
+        <Route path="/products/:id" component={ProductDetails} />
         <PrivateRoute path="/products" component={ProductList} />
         <Route path="/" exact component={Home} />
       </Switch>
