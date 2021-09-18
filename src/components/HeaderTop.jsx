@@ -5,7 +5,7 @@ export default function HeaderTop() {
   return (
     <nav className="flex justify-between py-5 max-w-screen-xl mx-auto">
       <div>
-        <NavLink to="/my-account">
+        <div>
           <span className="flex text-sm">
             <div className="mx-1">
               <svg
@@ -22,10 +22,10 @@ export default function HeaderTop() {
             </div>
             Find a store
           </span>
-        </NavLink>
+        </div>
       </div>
       <div className="flex">
-        <NavLink to="/login" className="mx-2">
+        <NavLink to="/my-account" className="mx-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"

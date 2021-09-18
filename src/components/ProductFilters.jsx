@@ -6,7 +6,7 @@ import StockFilter from "./StockFilter";
 
 export default function ProductFilters() {
   return (
-    <div className="flex">
+    <div className="flex justify-center flex-wrap">
       <CategoryFilter />
       <BrandFilter />
       <StockFilter />

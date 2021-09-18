@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
+import AddressFormModal from "./AddressFormModal";
 
-export default function Address({ setOpenModal }) {
+export default function Address() {
+  const [openModal, setOpenModal] = useState(false);
+
   return (
-    <div className="my-10">
+    <div className="my-10 relative">
       <h3 className="font-medium ">John Doe</h3>
       <p>772/81, Harish Nagar</p>
       <p>New Delhi, Delhi - 251001</p>
@@ -19,6 +22,7 @@ export default function Address({ setOpenModal }) {
           Remove
         </button>
       </div>
+      {openModal && <AddressFormModal setOpenModal={setOpenModal} />}
     </div>
   );
 }

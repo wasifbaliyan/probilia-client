@@ -4,7 +4,7 @@ export default function StockFilter() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="relative w-72 mx-4">
+    <div className="relative w-72 mx-4 mb-2">
       <div className="bg-gray-300">
         <button
           className="w-full py-3 text-left px-5"

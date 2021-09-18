@@ -25,7 +25,7 @@ function App() {
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/products/:id" component={ProductDetails} />
-        <PrivateRoute path="/products" component={ProductList} />
+        <Route path="/products" component={ProductList} />
         <PrivateRoute path="/cart" component={Cart} />
         <PrivateRoute path="/wishlist" component={Wishlist} />
         <PrivateRoute path="/my-account" component={Account} />
