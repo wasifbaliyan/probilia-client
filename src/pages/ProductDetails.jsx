@@ -4,17 +4,35 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductDetails } from "../redux/productSlice";
 import { useParams } from "react-router-dom";
 import { getDiscountedPrice } from "../utils/getDiscountedPrice";
+import { getWishlist } from "../redux/wishlistSlice";
+import { addToWishlist } from "../api";
 
 export default function ProductDetails() {
   const dispatch = useDispatch();
   const { status, productDetails } = useSelector((state) => state.product);
+  const { message, status: wishlistStatus } = useSelector(
+    (state) => state.wishlist
+  );
   const { id } = useParams();
   useEffect(() => {
     dispatch(getProductDetails(id));
   }, [dispatch, id]);
+
+  const handleAddToWishlist = async (id) => {
+    const data = await addToWishlist({ productId: id });
+    if (data) {
+      dispatch(getWishlist());
+    }
+  };
+
   return (
-    <div className="bg-white">
-      {status === "loading" && <p>Loading...</p>}
+    <div className="bg-white mb-16">
+      {(wishlistStatus === "loading" || wishlistStatus === "failed") && (
+        <p className="max-w-screen-xl mx-auto pt-16">{message}</p>
+      )}
+      {status === "loading" && (
+        <p className="max-w-screen-xl mx-auto pt-16">Loading...</p>
+      )}
       {status === "success" && (
         <div className="max-w-screen-xl mx-auto">
           <div className="flex justify-between pt-10 mb-5">
@@ -87,7 +105,10 @@ export default function ProductDetails() {
                   </button>
                 </div>
                 <div className="my-3">
-                  <button className="w-full uppercase text-sm font-medium hover:text-red-500 hover:border-red-500 bg-white text-black border-black border-2  py-3 px-10 transition-all">
+                  <button
+                    onClick={() => handleAddToWishlist(productDetails._id)}
+                    className="w-full uppercase text-sm font-medium hover:text-red-500 hover:border-red-500 bg-white text-black border-black border-2  py-3 px-10 transition-all"
+                  >
                     add to wishlist
                   </button>
                 </div>

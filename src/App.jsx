@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Switch, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import PrivateRoute from "./components/PrivateRoute";
@@ -11,15 +11,23 @@ import ProductDetails from "./pages/ProductDetails";
 import ProductList from "./pages/ProductList";
 import Wishlist from "./pages/Wishlist";
 import { setAuth } from "./redux/authSlice";
+import { getWishlist } from "./redux/wishlistSlice";
 
 function App() {
   const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((state) => state.auth);
   useEffect(() => {
     const { isLoggedIn } = JSON.parse(localStorage.getItem("login")) || {};
     if (isLoggedIn) {
       dispatch(setAuth({ isLoggedIn }));
     }
-  }, [dispatch]);
+  }, [dispatch, isLoggedIn]);
+  useEffect(() => {
+    const { isLoggedIn } = JSON.parse(localStorage.getItem("login")) || {};
+    if (isLoggedIn) {
+      dispatch(getWishlist());
+    }
+  }, [dispatch, isLoggedIn]);
   return (
     <Layout>
       <Switch>

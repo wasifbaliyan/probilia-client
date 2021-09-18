@@ -10,6 +10,11 @@ import reportWebVitals from "./reportWebVitals";
 
 axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 
+if ("login" in localStorage) {
+  const login = JSON.parse(localStorage.getItem("login"));
+  axios.defaults.headers.common["authorization"] = `Bearer ${login.token}`;
+}
+
 console.log(
   "Hey Developer,\n\nHope you're doing fine.\nThanks for stopping by.\n\n@wasifbaliyan"
 );

@@ -28,7 +28,6 @@ export const authSlice = createSlice({
     logout: (state, action) => {
       localStorage.clear();
       state.isLoggedIn = false;
-      axios.defaults.headers.common["authorization"] = null;
     },
     setAuth: (state, action) => {
       state.isLoggedIn = action.payload.isLoggedIn;
@@ -46,7 +45,6 @@ export const authSlice = createSlice({
         JSON.stringify({ token, name, email, isLoggedIn: true })
       );
       state.isLoggedIn = true;
-      axios.defaults.headers.common["authorization"] = `Bearer ${token}`;
     },
     [loginUser.rejected]: (state, action) => {
       state.status = "failed";
@@ -62,7 +60,7 @@ export const authSlice = createSlice({
         "login",
         JSON.stringify({ token, name, email, isLoggedIn: true })
       );
-      axios.defaults.headers.common["authorization"] = `Bearer ${token}`;
+
       state.isLoggedIn = true;
     },
     [registerUser.rejected]: (state, action) => {
