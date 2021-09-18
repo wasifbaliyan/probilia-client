@@ -13,22 +13,22 @@ export default function FeaturedCategories() {
         <FeaturedCard
           text="Comfort, coziness, raw materials and warm colours."
           title="NATURAL STYLE"
-          src="https://mobilia.ca/media/2021_HOMEPAGE/05_ROTIN_mondes/3-DESK_4COL_NATURAL.jpg"
+          src="https://res.cloudinary.com/dnboldv5r/image/upload/v1631972327/probilia/ui/cat_sofa_specpz.jpg"
         />
         <FeaturedCard
           text="Softness, refinement, fabrics and Scandinavian inspiration."
           title="EURO STYLE"
-          src="https://mobilia.ca/media/2021_HOMEPAGE/05_ROTIN_mondes/3-DESK_4COL_EURO.jpg"
+          src="https://res.cloudinary.com/dnboldv5r/image/upload/v1631972353/probilia/ui/cat_2_pi9qlf.jpg"
         />
         <FeaturedCard
           text="Bold, sophisticated and timeless materials"
           title="WOW STYLE"
-          src="https://mobilia.ca/media/2021_HOMEPAGE/05_ROTIN_mondes/3-DESK_4COL_WOW.jpg"
+          src="https://res.cloudinary.com/dnboldv5r/image/upload/v1631972357/probilia/ui/cat_3_plyui9.jpg"
         />
         <FeaturedCard
           text="Eclecticism, design, inspiration and creativity."
           title="SPONTANEOUS STYLE"
-          src="https://mobilia.ca/media/2021_HOMEPAGE/05_ROTIN_mondes/3-DESK_4COL_SPONTANE.jpg"
+          src="https://res.cloudinary.com/dnboldv5r/image/upload/v1631972355/probilia/ui/cat_4_g6kg3l.jpg"
         />
       </div>
     </div>

@@ -33,7 +33,7 @@ export default function Account() {
       </h1>
       <hr />
       <div className="grid grid-cols-4 pt-10">
-        <div className="col-span-1 bg-gray-200 py-5">
+        <div className="col-span-4 md:col-span-1 bg-gray-200 py-5">
           <ul>
             <li className="border-b-2 border-gray-300">
               <button
@@ -70,7 +70,9 @@ export default function Account() {
             </li>
           </ul>
         </div>
-        <div className="col-span-3 bg-white">{getActiveComponent()}</div>
+        <div className="col-span-4 md:col-span-3 bg-white">
+          {getActiveComponent()}
+        </div>
       </div>
     </div>
   );

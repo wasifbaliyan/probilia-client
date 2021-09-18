@@ -4,7 +4,9 @@ import { NavLink } from "react-router-dom";
 import { ReactComponent as Logo } from "../assets/logo.svg";
 
 export default function HeaderMain() {
-  const { status, wishlist } = useSelector((state) => state.wishlist);
+  const { wishlist } = useSelector((state) => state.wishlist);
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  const { cart } = useSelector((state) => state.cart);
   return (
     <div className="bg-gray-100 fixed w-full top-0">
       <nav className="flex justify-between items-center py-6 max-w-screen-xl mx-auto">
@@ -60,9 +62,13 @@ export default function HeaderMain() {
             </svg>
           </NavLink>
           <NavLink to="/wishlist" className="mx-2 relative">
-            <span className="absolute bg-red-500 text-white text-xs px-3 -top-4 -right-4 rounded-full">
-              {status === "success" && wishlist.products.length}
-            </span>
+            {isLoggedIn &&
+              wishlist.products &&
+              wishlist.products.length !== 0 && (
+                <span className="absolute bg-red-500 text-white text-xs px-3 -top-4 -right-4 rounded-full">
+                  {wishlist.products.length}
+                </span>
+              )}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -75,9 +81,11 @@ export default function HeaderMain() {
             </svg>
           </NavLink>
           <NavLink to="/cart" className="mx-2 relative">
-            <span className="absolute bg-red-500 text-white text-xs px-3 -top-4 -right-4 rounded-full">
-              {status === "success" && wishlist.products.length}
-            </span>
+            {isLoggedIn && cart.products && cart.products.length !== 0 && (
+              <span className="absolute bg-red-500 text-white text-xs px-3 -top-4 -right-4 rounded-full">
+                {cart.products.length}
+              </span>
+            )}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"

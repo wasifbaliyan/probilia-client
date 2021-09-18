@@ -6,10 +6,13 @@ const initialState = {
   status: "idle",
 };
 
-export const getWishlist = createAsyncThunk("product/getWishlist", async () => {
-  const { data } = await axios.get("/api/wishlist");
-  return data;
-});
+export const getWishlist = createAsyncThunk(
+  "wishlist/getWishlist",
+  async () => {
+    const { data } = await axios.get("/api/wishlist");
+    return data;
+  }
+);
 
 export const wishlistSlice = createSlice({
   name: "wishlist",

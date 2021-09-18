@@ -28,6 +28,7 @@ export const authSlice = createSlice({
     logout: (state, action) => {
       localStorage.clear();
       state.isLoggedIn = false;
+      axios.defaults.headers.common["authorization"] = null;
     },
     setAuth: (state, action) => {
       state.isLoggedIn = action.payload.isLoggedIn;

@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import Bed from "../assets/bed.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductDetails } from "../redux/productSlice";
 import { useParams } from "react-router-dom";
 import { getDiscountedPrice } from "../utils/getDiscountedPrice";
 import { getWishlist } from "../redux/wishlistSlice";
-import { addToWishlist } from "../api";
+import { addToCart, addToWishlist } from "../api";
+import { getCart } from "../redux/cartSlice";
 
 export default function ProductDetails() {
   const dispatch = useDispatch();
@@ -22,6 +22,12 @@ export default function ProductDetails() {
     const data = await addToWishlist({ productId: id });
     if (data) {
       dispatch(getWishlist());
+    }
+  };
+  const handleAddToCart = async (id) => {
+    const data = await addToCart({ productId: id, item: 1 });
+    if (data) {
+      dispatch(getCart());
     }
   };
 
@@ -47,10 +53,10 @@ export default function ProductDetails() {
             </div>
             <div>
               <h2 className="font-medium text-3xl mb-3">
-                ${getDiscountedPrice(productDetails)}
+                ₹{getDiscountedPrice(productDetails)}
               </h2>
               <h3 className="font-medium text-lg line-through  text-gray-500">
-                ${productDetails.price}
+                ₹{productDetails.price}
               </h3>
               <h1 className="font-medium text-xl text-red-500">
                 {productDetails.discount}%
@@ -62,17 +68,32 @@ export default function ProductDetails() {
             <div className="col-span-2 flex">
               <div>
                 <div>
-                  <img className="m-4 w-32" src={Bed} alt="bed" />
+                  <img
+                    className="m-4 w-32"
+                    src={productDetails.images && productDetails.images[0]}
+                    alt="bed"
+                  />
                 </div>
                 <div>
-                  <img className="m-4 w-32" src={Bed} alt="bed" />
+                  <img
+                    className="m-4 w-32"
+                    src={productDetails.images && productDetails.images[1]}
+                    alt="bed"
+                  />
                 </div>
                 <div>
-                  <img className="m-4 w-32" src={Bed} alt="bed" />
+                  <img
+                    className="m-4 w-32"
+                    src={productDetails.images && productDetails.images[2]}
+                    alt="bed"
+                  />
                 </div>
               </div>
               <div className="mx-auto">
-                <img src={Bed} alt="bed" />
+                <img
+                  src={productDetails.images && productDetails.images[0]}
+                  alt="bed"
+                />
               </div>
             </div>
             <div className="">
@@ -100,7 +121,10 @@ export default function ProductDetails() {
                   <p>{productDetails.rating} / 5</p>
                 </div>
                 <div className="mb-3 mt-10">
-                  <button className="w-full uppercase text-sm font-medium hover:bg-red-500 hover:border-red-500 bg-black border-2 border-black text-white py-3 px-10 transition-all">
+                  <button
+                    onClick={() => handleAddToCart(productDetails._id)}
+                    className="w-full uppercase text-sm font-medium hover:bg-red-500 hover:border-red-500 bg-black border-2 border-black text-white py-3 px-10 transition-all"
+                  >
                     Add to cart
                   </button>
                 </div>

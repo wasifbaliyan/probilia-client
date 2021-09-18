@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import CustomLink from "../common/CustomLink";
-import Bed from "../assets/bed.jpg";
 import { getDiscountedPrice } from "../utils/getDiscountedPrice";
 export default function Product({ product }) {
   const [hover, setHover] = useState(false);
@@ -13,7 +12,7 @@ export default function Product({ product }) {
         style={{ clipPath: "polygon(20% 0, 100% 0, 100% 100%, 0 97%, 0 27%)" }}
         className="py-12 px-12 bg-white relative"
       >
-        <img src={Bed} alt="bed" />
+        <img src={product.images[0]} alt="bed" />
         {hover && (
           <div className="absolute mx-auto top-2/4 left-20">
             <CustomLink to={`/products/${product._id}`}>

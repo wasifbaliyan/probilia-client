@@ -1,29 +1,36 @@
 import React from "react";
-import PickUpImg from "../assets/pickup.jpg";
-import DeliveryImg from "../assets/delivery_van.jpg";
-import ReturnImg from "../assets/return_policy.jpg";
+
 export default function Footer() {
   return (
     <>
       <div className="max-w-screen-xl mx-auto py-14">
         <div className="grid grid-cols-3 gap-10">
-          <div>
-            <img src={PickUpImg} alt="free pick up from store" />
+          <div className="col-span-3 sm:col-span-1">
+            <img
+              src={`https://res.cloudinary.com/dnboldv5r/image/upload/v1631972344/probilia/ui/pickup_eukpuf.jpg`}
+              alt="free pick up from store"
+            />
           </div>
-          <div>
-            <img src={DeliveryImg} alt="free and hassless delivery" />
+          <div className="col-span-3 sm:col-span-1">
+            <img
+              src={`https://res.cloudinary.com/dnboldv5r/image/upload/v1631972326/probilia/ui/delivery_van_gcniof.jpg`}
+              alt="free and hassless delivery"
+            />
           </div>
-          <div>
-            <img src={ReturnImg} alt="easy returns" />
+          <div className="col-span-3 sm:col-span-1">
+            <img
+              src={`https://res.cloudinary.com/dnboldv5r/image/upload/v1631972346/probilia/ui/return_policy_mzmzwz.jpg`}
+              alt="easy returns"
+            />
           </div>
         </div>
       </div>
       <footer className="bg-gray-100 py-10">
         <div className="grid grid-cols-4 max-w-screen-xl mx-auto px-2">
-          <div className="col-span-1"></div>
-          <div className="col-span-3">
+          <div className="col-span-4 lg:col-span-1 sm:col-span-4"></div>
+          <div className="col-span-4 lg:col-span-3 sm:col-span-4">
             <div className="grid grid-cols-3">
-              <div className="col-span-2">
+              <div className="col-span-3 sm:col-span-3 md:col-span-2 ">
                 <h3 className="font-medium text-sm">
                   Stay in the know of our latest arrivals, receive inspiration
                   and styling tips along with special offers!
@@ -36,7 +43,7 @@ export default function Footer() {
                   />
                 </div>
               </div>
-              <div className="col-span-1">
+              <div className="col-span-3 md:col-span-1 sm:col-span-3">
                 <div className="h-full flex justify-between items-center">
                   <h3>Follow us:</h3>
                   <div className="flex">
@@ -93,12 +100,12 @@ export default function Footer() {
               </div>
             </div>
             <div className="grid grid-cols-5 py-10">
-              <div className="col-span-2">
+              <div className="col-span-5 sm:col-span-2 mb-5">
                 <h1 className="text-3xl font-medium">Furninshing</h1>
                 <h1 className="pl-4 text-3xl font-medium py-2">a world of</h1>
                 <h1 className="text-3xl font-medium">Your own</h1>
               </div>
-              <div className="col-span-3 grid grid-cols-2">
+              <div className="col-span-5 sm:col-span-3 grid grid-cols-2">
                 <div className="col-span-1">
                   <h3 className="text-lg font-medium">Company</h3>
                   <ul>
@@ -151,12 +158,12 @@ export default function Footer() {
               </div>
             </div>
             <div className="grid grid-cols-3 py-5">
-              <div className="col-span-1">
+              <div className="col-span-3  sm:col-span-1 my-3">
                 <div className="text-xs">
                   Mobilia © All Rights Reserved 2021
                 </div>
               </div>
-              <div className="col-span-2">
+              <div className="col-span-3 sm:col-span-2 my-3">
                 <div className="text-xs italic">
                   Mobilia is a Canadian retailer of modern furniture for the
                   home. We strive to inspire and guide consumers in their
