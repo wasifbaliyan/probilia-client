@@ -13,8 +13,8 @@ export default function Home() {
           alt="hero"
         />
 
-        <button className="absolute text-3xl  bg-red-500 border-2 border-red-500 hover:border-red-400 transition-all hover:bg-red-400 text-white">
-          <Link to="/products" className="py-4 px-16 block">
+        <button className="absolute text-xl md:text-3xl  bg-red-500 border-2 border-red-500 hover:border-red-400 transition-all hover:bg-red-400 text-white">
+          <Link to="/products" className="py-2 md:py-4 px-10 md:px-16 block">
             Shop Now
           </Link>
         </button>

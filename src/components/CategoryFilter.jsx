@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-
+import { useDispatch } from "react-redux";
+import { CATEGORIES } from "../data/uiData";
+import { setCheckboxFilters } from "../redux/productSlice";
 export default function CategoryFilter() {
   const [open, setOpen] = useState(false);
-
+  const dispatch = useDispatch();
   return (
     <div className="relative w-72 mx-4 mb-2">
       <div className="bg-gray-300">
@@ -15,18 +17,32 @@ export default function CategoryFilter() {
       </div>
       {open && (
         <div className="absolute w-full z-10 bg-gray-300 pb-3">
-          <div className="w-full py-2 px-5">
-            <input type="checkbox" name="sortBy" id="highToLow" />
-            <label className="ml-2" htmlFor="highToLow">
-              Shoes
-            </label>
-          </div>
-          <div className="w-full  py-2 px-5">
-            <input type="checkbox" name="sortBy" id="lowToHigh" />
-            <label className="ml-2" htmlFor="lowToHigh">
-              Clothing
-            </label>
-          </div>
+          {CATEGORIES.map((category) => (
+            <div key={category} className="w-full py-2 px-5">
+              <input
+                onChange={(e, value) =>
+                  dispatch(
+                    setCheckboxFilters({
+                      name: e.target.name,
+                      value: e.target.value,
+                      checked: e.target.checked,
+                    })
+                  )
+                }
+                className="w-4 h-4"
+                type="checkbox"
+                name="category"
+                id={`${category}-id`}
+                value={category}
+              />
+              <label
+                className="ml-2 uppercase text-gray-700"
+                htmlFor={`${category}-id`}
+              >
+                {category}
+              </label>
+            </div>
+          ))}
         </div>
       )}
     </div>

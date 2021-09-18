@@ -65,7 +65,7 @@ export default function ProductDetails() {
           </div>
           <hr className="h-1 bg-gray-900" />
           <div className="grid grid-cols-3 gap-5 py-10">
-            <div className="col-span-2 flex">
+            <div className="col-span-3 md:col-span-2 flex">
               <div>
                 <div>
                   <img
@@ -96,7 +96,7 @@ export default function ProductDetails() {
                 />
               </div>
             </div>
-            <div className="">
+            <div className="col-span-3 md:col-span-1">
               <div>
                 <h1 className="font-medium text-xl">Product Details</h1>
                 <div className="flex justify-between py-3 mt-5">

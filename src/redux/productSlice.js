@@ -5,6 +5,12 @@ const initialState = {
   products: [],
   status: "idle",
   productDetails: {},
+  filters: {
+    category: [],
+    sortBy: "",
+    brand: [],
+    stock: [],
+  },
 };
 
 export const getProducts = createAsyncThunk("product/getProducts", async () => {
@@ -22,7 +28,21 @@ export const getProductDetails = createAsyncThunk(
 export const productSlice = createSlice({
   name: "product",
   initialState,
-  reducers: {},
+  reducers: {
+    setFilters: (state, action) => {
+      state.filters[action.payload.name] = action.payload.value;
+    },
+    setCheckboxFilters: (state, action) => {
+      if (action.payload.checked === true) {
+        state.filters[action.payload.name].push(action.payload.value);
+      } else {
+        const index = state.filters[action.payload.name].indexOf(
+          action.payload.value
+        );
+        state.filters[action.payload.name].splice(index, 1);
+      }
+    },
+  },
   extraReducers: {
     [getProducts.pending]: (state, action) => {
       state.status = "loading";
@@ -49,4 +69,4 @@ export const productSlice = createSlice({
 });
 
 export default productSlice.reducer;
-// export const {  } = productSlice.actions;
+export const { setFilters, setCheckboxFilters } = productSlice.actions;

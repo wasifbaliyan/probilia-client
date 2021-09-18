@@ -5,10 +5,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../redux/productSlice";
 export default function ProductList() {
   const dispatch = useDispatch();
-  const { products, status } = useSelector((state) => state.product);
+  const { products, status, filters } = useSelector((state) => state.product);
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
+
+  const getFilteredProducts = (products) => {
+    if (filters.brand.length !== 0) {
+      return products.filter((product) => {
+        return filters.brand.includes(product);
+      });
+    } else {
+      return products;
+    }
+  };
 
   return (
     <div className="max-w-screen-xl mx-auto py-10 ">
@@ -18,7 +28,7 @@ export default function ProductList() {
       {status === "loading" && <div>Loading...</div>}
       <div className=" flex justify-center flex-wrap">
         {status === "success" &&
-          products.map((product) => (
+          getFilteredProducts(products).map((product) => (
             <Product key={product._id} product={product} />
           ))}
       </div>

@@ -16,7 +16,7 @@ export default function HeaderMain() {
           </NavLink>
         </div>
         <div className="flex items-center">
-          <div>
+          <div className="hidden md:block">
             <NavLink
               exact
               to="/"
@@ -35,7 +35,7 @@ export default function HeaderMain() {
               Products
             </NavLink>
           </div>
-          <div className="ml-6">
+          <div className="hidden md:block ml-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
