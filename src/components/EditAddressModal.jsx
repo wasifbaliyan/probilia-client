@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addNewAddress } from "../api";
+import { updateAddress } from "../api";
 import { getAddresses } from "../redux/accountSlice";
 
-export default function AddressFormModal({ setOpenModal }) {
-  const [address, setAddress] = useState({});
+export default function EditAddressModal({ setOpenModal, recievedAddress }) {
+  const [address, setAddress] = useState({ ...recievedAddress });
   const dispatch = useDispatch();
   const handleAddAdress = async () => {
-    const response = await addNewAddress({ ...address });
+    const response = await updateAddress({ ...address });
     if (response) {
       dispatch(getAddresses());
     }
@@ -42,10 +42,12 @@ export default function AddressFormModal({ setOpenModal }) {
                 type="text"
                 placeholder="Full Name"
                 name="name"
+                value={address.name}
               />
             </div>
             <div>
               <input
+                value={address.street}
                 onChange={(e) =>
                   setAddress((prev) => ({
                     ...prev,
@@ -60,6 +62,7 @@ export default function AddressFormModal({ setOpenModal }) {
             </div>
             <div>
               <input
+                value={address.country}
                 onChange={(e) =>
                   setAddress((prev) => ({
                     ...prev,
@@ -84,6 +87,7 @@ export default function AddressFormModal({ setOpenModal }) {
                 type="text"
                 placeholder="State"
                 name="state"
+                value={address.state}
               />
             </div>
             <div>
@@ -97,6 +101,7 @@ export default function AddressFormModal({ setOpenModal }) {
                 className="w-full p-2 my-3 border-2 border-gray-300"
                 type="text"
                 placeholder="City"
+                value={address.city}
                 name="city"
               />
             </div>
@@ -111,6 +116,7 @@ export default function AddressFormModal({ setOpenModal }) {
                 className="w-full p-2 my-3 border-2 border-gray-300"
                 type="text"
                 placeholder="Mobile Number"
+                value={address.phone}
                 name="phone"
               />
             </div>
@@ -126,6 +132,7 @@ export default function AddressFormModal({ setOpenModal }) {
                 type="text"
                 placeholder="Pin Code"
                 name="pinCode"
+                value={address.pinCode}
               />
             </div>
           </form>

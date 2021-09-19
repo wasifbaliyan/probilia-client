@@ -11,7 +11,7 @@ import Login from "./pages/Login";
 import ProductDetails from "./pages/ProductDetails";
 import ProductList from "./pages/ProductList";
 import Wishlist from "./pages/Wishlist";
-import { setAuth } from "./redux/authSlice";
+import { getUser, setAuth } from "./redux/authSlice";
 import { getCart } from "./redux/cartSlice";
 import { getWishlist } from "./redux/wishlistSlice";
 
@@ -36,8 +36,10 @@ function App() {
     if (isLoggedIn) {
       dispatch(getWishlist());
       dispatch(getCart());
+      dispatch(getUser());
     }
   }, [dispatch, isLoggedIn]);
+
   return (
     <Layout>
       <Switch>

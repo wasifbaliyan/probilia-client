@@ -4,6 +4,7 @@ import axios from "axios";
 const initialState = {
   isLoggedIn: false,
   status: "idle",
+  user: {},
 };
 
 export const loginUser = createAsyncThunk(
@@ -20,6 +21,11 @@ export const registerUser = createAsyncThunk(
     return data;
   }
 );
+
+export const getUser = createAsyncThunk("auth/getUser", async () => {
+  const { data } = await axios.get("/auth/self");
+  return data;
+});
 
 export const authSlice = createSlice({
   name: "auth",
@@ -65,6 +71,17 @@ export const authSlice = createSlice({
       state.isLoggedIn = true;
     },
     [registerUser.rejected]: (state, action) => {
+      state.status = "failed";
+    },
+
+    [getUser.pending]: (state, action) => {
+      state.status = "loading";
+    },
+    [getUser.fulfilled]: (state, action) => {
+      state.status = "success";
+      state.user = action.payload.response;
+    },
+    [getUser.rejected]: (state, action) => {
       state.status = "failed";
     },
   },

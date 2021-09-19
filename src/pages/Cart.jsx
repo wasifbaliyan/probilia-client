@@ -3,14 +3,32 @@ import AddressSelectModal from "../components/AddressSelectModal";
 import CartItem from "../components/CartItem";
 import { getCart } from "../redux/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { getAddresses } from "../redux/accountSlice";
 
 export default function Cart() {
   const [openAddressSelectModal, setOpenAddressSelectModal] = useState(false);
+  const [selectedAddress, setSelectedAddress] = useState("");
   const dispatch = useDispatch();
   const { cart, status } = useSelector((state) => state.cart);
   useEffect(() => {
     dispatch(getCart());
   }, [dispatch]);
+
+  const { addresses, status: addressStatus } = useSelector(
+    (state) => state.account
+  );
+
+  useEffect(() => {
+    dispatch(getAddresses());
+  }, [dispatch]);
+
+  function getSelectedAddress() {
+    if (addressStatus === "success" && selectedAddress) {
+      return addresses.find((add) => add._id === selectedAddress);
+    }
+    return null;
+  }
+
   return (
     <div className="max-w-screen-xl mx-auto pb-20 ">
       <h1 className="uppercase italic text-3xl font-medium text-center py-10">
@@ -22,24 +40,33 @@ export default function Cart() {
         <div className="grid grid-cols-5 pt-10">
           <div className="col-span-5 md:col-span-3 bg-white pt-10 px-5 pb-5">
             <div className="flex justify-between mb-3">
-              <div>
-                <div className="font-medium mb-2">
-                  <span className="font-normal">Address:</span> John Doe
+              {getSelectedAddress() && (
+                <div>
+                  <div className="font-medium mb-2">
+                    <span className="font-normal">Address:</span>{" "}
+                    {getSelectedAddress().name}
+                  </div>
+                  <p className="text-gray-700">
+                    {getSelectedAddress().street},
+                  </p>
+                  <p className="text-gray-700">
+                    {getSelectedAddress().city}-{getSelectedAddress().pinCode}
+                  </p>
+                  <p className="text-gray-700">
+                    {getSelectedAddress().state}, {getSelectedAddress().country}
+                  </p>
                 </div>
-                <p className="text-gray-700">
-                  #1/4 , 100ft Ring Road, Jp Nagar - 4 Phase, Dollars Colony,
-                  Bangalore 11105
-                </p>
-              </div>
+              )}
               <div className="relative">
                 <button
                   onClick={() => setOpenAddressSelectModal(true)}
                   className="uppercase text-sm font-medium bg-white border-red-500  border-2  text-red-500 py-1 px-5 transition-all"
                 >
-                  Change
+                  Select Address
                 </button>
                 {openAddressSelectModal && (
                   <AddressSelectModal
+                    setSelectedAddress={setSelectedAddress}
                     setOpenAddressSelectModal={setOpenAddressSelectModal}
                   />
                 )}
