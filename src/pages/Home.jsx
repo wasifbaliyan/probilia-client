@@ -50,7 +50,7 @@ export default function Home() {
       />
       <CollectionCard
         align={"right"}
-        heading="SCANDINAVIAN, CANADIAN"
+        heading="SCANDI NAVIAN, CANADIAN"
         subHeading="Our collection designed by local artisans"
         text="Practicality, clean lines, light- coloured wood: the Nicolas collection blends the inherent qualities of Scandinavian style with Canadian know-how."
         btnTxt="SHOP LOCAL"

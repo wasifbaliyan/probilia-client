@@ -31,13 +31,13 @@ export default function Product({ product }) {
         </h3>
         <div className="flex">
           <p className="text-xl text-gray-800 font-medium">
-            ${getDiscountedPrice(product)}
+            ₹{getDiscountedPrice(product)}
           </p>
           <p className="text-lg text-red-500 font-medium mx-2">
             {product.discount}%
           </p>
           <p className="text-lg text-gray-500 font-medium line-through">
-            ${product.price}
+            ₹{product.price}
           </p>
         </div>
       </div>

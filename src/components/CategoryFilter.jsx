@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { CATEGORIES } from "../data/uiData";
 import { setCheckboxFilters } from "../redux/productSlice";
-export default function CategoryFilter() {
-  const [open, setOpen] = useState(false);
+export default function CategoryFilter({ open, handleOpen }) {
   const dispatch = useDispatch();
+  const { filters } = useSelector((state) => state.product);
   return (
     <div className="relative w-72 mx-4 mb-2">
       <div className="bg-gray-300">
         <button
           className="w-full py-3 text-left px-5"
-          onClick={() => setOpen(!open)}
+          onClick={() => handleOpen("category")}
         >
           Categories
         </button>
@@ -20,6 +20,7 @@ export default function CategoryFilter() {
           {CATEGORIES.map((category) => (
             <div key={category} className="w-full py-2 px-5">
               <input
+                checked={filters.category.includes(category)}
                 onChange={(e, value) =>
                   dispatch(
                     setCheckboxFilters({

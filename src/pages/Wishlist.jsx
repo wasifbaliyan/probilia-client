@@ -24,7 +24,7 @@ export default function Wishlist() {
             Items
           </h1>
           <hr />
-          <div className="flex flex-wrap justify-center">
+          <div className="flex flex-wrap justify-center sm:justify-around md:justify-start">
             {wishlist.products.map((product) => (
               <WishlistItem key={product._id} product={product} />
             ))}

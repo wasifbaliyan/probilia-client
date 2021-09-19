@@ -26,7 +26,7 @@ export default function HeaderMain() {
               Home
             </NavLink>
           </div>
-          <div>
+          <div className="hidden md:block ">
             <NavLink
               activeClassName="text-red-500"
               to="/products"

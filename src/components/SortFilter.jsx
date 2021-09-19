@@ -1,19 +1,20 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { setFilters } from "../redux/productSlice";
 
-export default function SortFilter() {
-  const [open, setOpen] = useState(false);
+export default function SortFilter({ open, handleOpen }) {
   const dispatch = useDispatch();
-
+  const { filters } = useSelector((state) => state.product);
   return (
     <div className="relative w-72 mx-4 mb-2">
       <div className="bg-gray-300">
         <button
           className="w-full py-3 text-left px-5"
-          onClick={() => setOpen(!open)}
+          onClick={() => {
+            handleOpen("sort");
+          }}
         >
-          Sort By{" "}
+          Sort By
         </button>
       </div>
       {open && (
@@ -25,6 +26,7 @@ export default function SortFilter() {
                   setFilters({ value: e.target.value, name: e.target.name })
                 )
               }
+              checked={filters.sortBy === "highToLow"}
               className="w-4 h-4"
               type="radio"
               name="sortBy"
@@ -42,6 +44,7 @@ export default function SortFilter() {
                   setFilters({ value: e.target.value, name: e.target.name })
                 )
               }
+              checked={filters.sortBy === "lowToHigh"}
               className="w-4 h-4"
               type="radio"
               name="sortBy"

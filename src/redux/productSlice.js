@@ -42,6 +42,14 @@ export const productSlice = createSlice({
         state.filters[action.payload.name].splice(index, 1);
       }
     },
+    resetFilters: (state, action) => {
+      state.filters = {
+        category: [],
+        sortBy: "",
+        brand: [],
+        stock: [],
+      };
+    },
   },
   extraReducers: {
     [getProducts.pending]: (state, action) => {
@@ -69,4 +77,5 @@ export const productSlice = createSlice({
 });
 
 export default productSlice.reducer;
-export const { setFilters, setCheckboxFilters } = productSlice.actions;
+export const { setFilters, setCheckboxFilters, resetFilters } =
+  productSlice.actions;

@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { setCheckboxFilters } from "../redux/productSlice";
 
-export default function StockFilter() {
-  const [open, setOpen] = useState(false);
+export default function StockFilter({ open, handleOpen }) {
   const dispatch = useDispatch();
+  const { filters } = useSelector((state) => state.product);
 
   return (
     <div className="relative w-72 mx-4 mb-2">
       <div className="bg-gray-300">
         <button
           className="w-full py-3 text-left px-5"
-          onClick={() => setOpen(!open)}
+          onClick={() => handleOpen("stock")}
         >
           Availabilty
         </button>
@@ -20,6 +20,7 @@ export default function StockFilter() {
         <div className="absolute w-full z-10 bg-gray-300 pb-3">
           <div className="w-full py-2 px-5">
             <input
+              checked={filters.stock.includes("inStock")}
               onChange={(e, value) =>
                 dispatch(
                   setCheckboxFilters({
@@ -41,6 +42,7 @@ export default function StockFilter() {
           </div>
           <div className="w-full  py-2 px-5">
             <input
+              checked={filters.stock.includes("outStock")}
               onChange={(e, value) =>
                 dispatch(
                   setCheckboxFilters({
