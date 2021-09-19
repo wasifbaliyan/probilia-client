@@ -40,7 +40,7 @@ export default function ProductFilters() {
   };
 
   return (
-    <div className="flex justify-center flex-wrap">
+    <div className="flex justify-center md:justify-evenly lg:justify-start flex-wrap">
       <CategoryFilter open={openCategory} handleOpen={handleOpen} />
       <BrandFilter open={openBrand} handleOpen={handleOpen} />
       <StockFilter open={openStock} handleOpen={handleOpen} />

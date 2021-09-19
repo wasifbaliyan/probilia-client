@@ -10,8 +10,11 @@ import {
   getTotalPaidAmount,
 } from "../utils/payment";
 import { placeNewOrder } from "../api";
+import { useHistory } from "react-router";
 
 export default function Cart() {
+  const history = useHistory();
+
   const [openAddressSelectModal, setOpenAddressSelectModal] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState("");
   const dispatch = useDispatch();
@@ -49,7 +52,8 @@ export default function Cart() {
     if (selectedAddress) {
       const response = await placeNewOrder(orderData);
       if (response) {
-        console.log(response);
+        dispatch(getCart());
+        return history.push("/order-success");
       }
     }
   }
@@ -121,6 +125,7 @@ export default function Cart() {
             <div className="flex py-2 justify-between">
               <p className=" text-gray-700">Discount</p>
               <h3 className="font-medium  ml-4 text-green-500">
+                ₹
                 {cart.products &&
                   cart.products.length !== 0 &&
                   getTotalDiscount(cart.products)}

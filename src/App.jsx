@@ -8,6 +8,7 @@ import Account from "./pages/Account";
 import Cart from "./pages/Cart";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import OrderSuccess from "./pages/OrderSuccess";
 import ProductDetails from "./pages/ProductDetails";
 import ProductList from "./pages/ProductList";
 import Wishlist from "./pages/Wishlist";
@@ -49,6 +50,7 @@ function App() {
         <PrivateRoute path="/cart" component={Cart} />
         <PrivateRoute path="/wishlist" component={Wishlist} />
         <PrivateRoute path="/my-account" component={Account} />
+        <PrivateRoute path="/order-success" component={OrderSuccess} />
         <Route path="/" exact component={Home} />
       </Switch>
     </Layout>
