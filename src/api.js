@@ -55,3 +55,11 @@ export const deleteAddress = async (id) => {
   }
   return response.data;
 };
+
+export const placeNewOrder = async (data) => {
+  const response = await axios.post("/api/orders", data);
+  if (!response.statusText === "OK") {
+    throw new Error("Something went wrong!");
+  }
+  return response.data;
+};

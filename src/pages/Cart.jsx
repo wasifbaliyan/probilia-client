@@ -4,6 +4,12 @@ import CartItem from "../components/CartItem";
 import { getCart } from "../redux/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { getAddresses } from "../redux/accountSlice";
+import {
+  getTotalDiscount,
+  getTotalMRP,
+  getTotalPaidAmount,
+} from "../utils/payment";
+import { placeNewOrder } from "../api";
 
 export default function Cart() {
   const [openAddressSelectModal, setOpenAddressSelectModal] = useState(false);
@@ -27,6 +33,25 @@ export default function Cart() {
       return addresses.find((add) => add._id === selectedAddress);
     }
     return null;
+  }
+
+  async function handlePlaceOrder() {
+    const orderData = {
+      products: cart.products,
+      payment: {
+        totalAmount: getTotalMRP(cart.products),
+        totalDiscount: getTotalDiscount(cart.products),
+        totalPaidAmount: getTotalPaidAmount(cart.products),
+      },
+      addressId: selectedAddress,
+    };
+    console.log("OrderData", orderData);
+    if (selectedAddress) {
+      const response = await placeNewOrder(orderData);
+      if (response) {
+        console.log(response);
+      }
+    }
   }
 
   return (
@@ -85,20 +110,38 @@ export default function Cart() {
             </h1>
             <div className="flex pb-3 justify-between">
               <p className=" text-gray-700">Total MRP</p>
-              <h3 className="font-medium  ml-4">₹10000</h3>
+              <h3 className="font-medium  ml-4">
+                ₹
+                {cart.products &&
+                  cart.products.length !== 0 &&
+                  getTotalMRP(cart.products)}
+              </h3>
             </div>
 
             <div className="flex py-2 justify-between">
               <p className=" text-gray-700">Discount</p>
-              <h3 className="font-medium  ml-4 text-green-500">₹100</h3>
+              <h3 className="font-medium  ml-4 text-green-500">
+                {cart.products &&
+                  cart.products.length !== 0 &&
+                  getTotalDiscount(cart.products)}
+              </h3>
             </div>
 
             <div className="flex py-2 justify-between">
               <p className=" font-medium">Total Paid</p>
-              <h3 className="font-medium  ml-4 ">₹11000</h3>
+              <h3 className="font-medium  ml-4 ">
+                ₹
+                {cart.products &&
+                  cart.products.length !== 0 &&
+                  getTotalPaidAmount(cart.products)}
+              </h3>
             </div>
             <div>
-              <button className="mt-8 uppercase text-sm w-full py-2 hover:bg-red-400 transition-all hover:border-red-400 bg-red-500 border-2 border-red-500 text-white">
+              <button
+                onClick={handlePlaceOrder}
+                disabled={cart.products && cart.products.length === 0}
+                className="mt-8 uppercase text-sm w-full py-2 hover:bg-red-400 transition-all hover:border-red-400 bg-red-500 border-2 border-red-500 text-white"
+              >
                 Place Order
               </button>
             </div>

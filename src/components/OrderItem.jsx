@@ -1,16 +1,21 @@
 import React from "react";
-import Bed from "../assets/bed.jpg";
 
-export default function OrderItem() {
+export default function OrderItem({ product }) {
   return (
     <div className="flex py-3 items-center">
       <figure className="w-32 mr-4">
-        <img className="w-full" src={Bed} alt="bed" />
+        <img
+          className="w-full"
+          src={product.productId.images[0]}
+          alt={product.productId.name}
+        />
       </figure>
       <div>
-        <h2 className="font-medium">RECLINING SECTIONAL SOFA</h2>
-        <p className="text-sm uppercase text-gray-700">Wagner</p>
-        <p className="text-sm font-medium"> Quantity: 1</p>
+        <h2 className="font-medium">{product.productId.name}</h2>
+        <p className="text-sm uppercase text-gray-700">
+          {product.productId.brand}
+        </p>
+        <p className="text-sm font-medium"> Quantity: {product.item}</p>
       </div>
     </div>
   );

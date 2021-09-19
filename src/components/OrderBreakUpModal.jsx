@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function OrderBreakUpModal({ setBreakUpModalOpen }) {
+export default function OrderBreakUpModal({ setBreakUpModalOpen, order }) {
   return (
     <div className="w-full h-full top-0 left-0 fixed backdrop-filter backdrop-blur-sm ">
       <div className="flex justify-center items-center h-full">
@@ -16,21 +16,34 @@ export default function OrderBreakUpModal({ setBreakUpModalOpen }) {
           <h1 className=" font-medium uppercase italic py-3">
             Order Payment Details
           </h1>
-          <div className="flex pb-3 justify-between">
-            <p className="text-sm text-gray-700">
-              <span>1</span> x Wagner Cornred Sofa for living room
-            </p>
-            <h3 className="font-medium text-sm ml-4">₹10000</h3>
+          <div className="pb-3 ">
+            {order.products.map((product) => (
+              <div
+                key={product._id}
+                className="text-sm flex justify-between text-gray-700"
+              >
+                <p>
+                  <span>{product.item}</span> x {product.productId.name}
+                </p>
+                <h3 className="font-medium text-sm ml-4">
+                  ₹{product.productId.price}
+                </h3>
+              </div>
+            ))}
           </div>
           <hr />
           <div className="flex py-3 justify-between">
             <p className="text-sm text-gray-700">Discount</p>
-            <h3 className="font-medium text-sm ml-4 text-green-500">₹100</h3>
+            <h3 className="font-medium text-sm ml-4 text-green-500">
+              ₹{order.payment.totalDiscount}
+            </h3>
           </div>
           <hr />
           <div className="flex py-3 justify-between">
             <p className="text-sm font-medium">Total Paid</p>
-            <h3 className="font-medium text-sm ml-4 ">₹11000</h3>
+            <h3 className="font-medium text-sm ml-4 ">
+              ₹{order.payment.totalPaidAmount}
+            </h3>
           </div>
           <div className="mt-5">
             <button
