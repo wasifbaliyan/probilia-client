@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -110,22 +111,22 @@ export default function Footer() {
                   <h3 className="text-lg font-medium">Company</h3>
                   <ul>
                     <li className="text-sm py-1">
-                      <a href="/">Covid-19</a>
+                      <Link to="/">Covid-19</Link>
                     </li>
                     <li className="text-sm py-1">
-                      <a href="/">About Us</a>
+                      <Link to="/">About Us</Link>
                     </li>
                     <li className="text-sm py-1">
-                      <a href="/">Find a Store</a>
+                      <Link to="/">Find a Store</Link>
                     </li>
                     <li className="text-sm py-1">
-                      <a href="/">Careers</a>
+                      <Link to="/">Careers</Link>
                     </li>
                     <li className="text-sm py-1">
-                      <a href="/">Foundation</a>
+                      <Link to="/">Foundation</Link>
                     </li>
                     <li className="text-sm py-1">
-                      <a href="/">B2B</a>
+                      <Link to="/">B2B</Link>
                     </li>
                   </ul>
                 </div>
@@ -133,25 +134,25 @@ export default function Footer() {
                   <h3 className="text-lg font-medium">Assistance</h3>
                   <ul>
                     <li className="text-sm py-1">
-                      <a href="/">Frequently Asked Questions</a>
+                      <Link to="/">Frequently Asked Questions</Link>
                     </li>
                     <li className="text-sm py-1">
-                      <a href="/">Customer Service</a>
+                      <Link to="/">Customer Service</Link>
                     </li>
                     <li className="text-sm py-1">
-                      <a href="/">Contact Us</a>
+                      <Link to="/">Contact Us</Link>
                     </li>
                     <li className="text-sm py-1">
-                      <a href="/">Shipping Options</a>
+                      <Link to="/">Shipping Options</Link>
                     </li>
                     <li className="text-sm py-1">
-                      <a href="/">Exchange & Return</a>
+                      <Link to="/">Exchange & Return</Link>
                     </li>
                     <li className="text-sm py-1">
-                      <a href="/">Protection Plan</a>
+                      <Link to="/">Protection Plan</Link>
                     </li>
                     <li className="text-sm py-1">
-                      <a href="/">Maintenace Plan</a>
+                      <Link to="/">Maintenace Plan</Link>
                     </li>
                   </ul>
                 </div>
@@ -160,27 +161,27 @@ export default function Footer() {
             <div className="grid grid-cols-3 py-5">
               <div className="col-span-3  sm:col-span-1 my-3">
                 <div className="text-xs">
-                  Mobilia © All Rights Reserved 2021
+                  Probilia © All Rights Reserved 2021
                 </div>
               </div>
               <div className="col-span-3 sm:col-span-2 my-3">
                 <div className="text-xs italic">
-                  Mobilia is a Canadian retailer of modern furniture for the
+                  Probilia is a Canadian retailer of modern furniture for the
                   home. We strive to inspire and guide consumers in their
                   purchases with our 4 worlds of style
                 </div>
                 <ul className="flex text-xs py-3">
                   <li className="mr-3">
-                    <a href="/">Privacy Policy</a>
+                    <Link to="/">Privacy Policy</Link>
                   </li>
                   <li className="mr-3">
-                    <a href="/">Terms of use</a>
+                    <Link to="/">Terms of use</Link>
                   </li>
                   <li className="mr-3">
-                    <a href="/">Contest</a>
+                    <Link to="/">Contest</Link>
                   </li>
                   <li className="mr-3">
-                    <a href="/">Sitemap</a>
+                    <Link to="/">Sitemap</Link>
                   </li>
                 </ul>
               </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { ReactComponent as Logo } from "../assets/logo.svg";
+import Logo from "../assets/Probilia.png";
 
 export default function HeaderMain() {
   const { wishlist } = useSelector((state) => state.wishlist);
@@ -12,7 +12,7 @@ export default function HeaderMain() {
       <nav className="flex justify-between items-center py-6 max-w-screen-xl mx-auto">
         <div className="px-2">
           <NavLink to="/">
-            <Logo />
+            <img src={Logo} className="h-7" alt="Logo Probilia" />
           </NavLink>
         </div>
         <div className="flex items-center">
