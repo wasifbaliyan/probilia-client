@@ -1,7 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { addToWishlist, removeFromCart } from "../api";
-import Bed from "../assets/bed.jpg";
+import { addToCart, addToWishlist, removeFromCart } from "../api";
 import { getCart } from "../redux/cartSlice";
 import { getWishlist } from "../redux/wishlistSlice";
 
@@ -16,6 +15,20 @@ export default function CartItem({ product }) {
       dispatch(getWishlist());
     }
   };
+
+  const handleAddProduct = async (id) => {
+    const data = await addToCart({ productId: id, item: 1 });
+    if (data) {
+      dispatch(getCart());
+    }
+  };
+  const handleRemoveProduct = async (id) => {
+    const data = await removeFromCart({ productId: id, item: 1 });
+    if (data) {
+      dispatch(getCart());
+    }
+  };
+
   return (
     <div className="flex py-3 items-center">
       <figure className="w-32 mr-4">
@@ -27,13 +40,19 @@ export default function CartItem({ product }) {
           {product.productId.brand}
         </p>
         <div className="flex my-3">
-          <button className="border-2 font-medium border-gray-200  text-2xl w-10">
+          <button
+            onClick={() => handleRemoveProduct(product.productId._id)}
+            className="border-2 font-medium border-gray-200  text-2xl w-10"
+          >
             -
           </button>
           <span className="border-2 border-gray-200 mx-4 w-10 flex items-center justify-center">
-            1
+            {product.item}
           </span>
-          <button className="border-2 font-medium  border-gray-200 text-2xl w-10">
+          <button
+            onClick={() => handleAddProduct(product.productId._id)}
+            className="border-2 font-medium  border-gray-200 text-2xl w-10"
+          >
             +
           </button>
         </div>

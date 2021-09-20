@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import Logo from "../assets/Probilia.png";
+import { getTotalItemInCart } from "../utils/payment";
 
 export default function HeaderMain() {
   const { wishlist } = useSelector((state) => state.wishlist);
@@ -83,7 +84,7 @@ export default function HeaderMain() {
           <NavLink to="/cart" className="mx-2 relative">
             {isLoggedIn && cart.products && cart.products.length !== 0 && (
               <span className="absolute bg-red-500 text-white text-xs px-3 -top-4 -right-4 rounded-full">
-                {cart.products.length}
+                {getTotalItemInCart(cart.products)}
               </span>
             )}
             <svg

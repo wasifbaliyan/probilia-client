@@ -65,7 +65,10 @@ export default function Cart() {
       </h1>
       <hr />
       {status === "loading" && <div>Loading...</div>}
-      {status === "success" && (
+      {status === "success" && cart.products.length === 0 && (
+        <div className="text-center">No products in the cart.</div>
+      )}
+      {status === "success" && cart.products.length !== 0 && (
         <div className="grid grid-cols-5 pt-10">
           <div className="col-span-5 md:col-span-3 bg-white pt-10 px-5 pb-5">
             <div className="flex justify-between mb-3">
