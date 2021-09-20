@@ -13,6 +13,10 @@ export default function LoginForm() {
     dispatch(loginUser(loginData));
   };
 
+  const loginAsGuest = () => {
+    setLoginData({ email: "potato@mail.com", password: "potato" });
+    dispatch(loginUser({ email: "potato@mail.com", password: "potato" }));
+  };
   useEffect(() => {
     if (isLoggedIn) {
       history.push("/");
@@ -24,6 +28,7 @@ export default function LoginForm() {
       <form onSubmit={handleSubmit}>
         <div>
           <input
+            value={loginData.email}
             onChange={(e) =>
               setLoginData({ ...loginData, [e.target.name]: e.target.value })
             }
@@ -35,6 +40,7 @@ export default function LoginForm() {
         </div>
         <div>
           <input
+            value={loginData.password}
             onChange={(e) =>
               setLoginData({ ...loginData, [e.target.name]: e.target.value })
             }
@@ -49,7 +55,10 @@ export default function LoginForm() {
         </button>
       </form>
       <div className="uppercase text-center">or</div>
-      <button className="w-full uppercase text-sm font-medium text-red-500 border-2 border-red-500 py-3 transition-all my-4">
+      <button
+        onClick={loginAsGuest}
+        className="w-full uppercase text-sm font-medium text-red-500 border-2 border-red-500 py-3 transition-all my-4"
+      >
         Login as guest
       </button>
     </>
