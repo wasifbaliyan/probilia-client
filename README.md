@@ -16,7 +16,7 @@ An Ecommerce platform for furnitures built using React, Redux and TailwindCSS.
 
 ## Demo
 
-Insert gif or link to demo
+[Probilia Live](https://probilia.netlify.app/)
 
 ## Run Locally
 
