@@ -2,13 +2,10 @@ import React, { useEffect } from "react";
 import Product from "../components/Product";
 import ProductFilters from "../components/ProductFilters";
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts, resetFilters } from "../redux/productSlice";
+import { resetFilters } from "../redux/productSlice";
 export default function ProductList() {
   const dispatch = useDispatch();
   const { products, status, filters } = useSelector((state) => state.product);
-  useEffect(() => {
-    dispatch(getProducts());
-  }, [dispatch]);
 
   const getSortedProducts = (products) => {
     const newProducts = [...products];

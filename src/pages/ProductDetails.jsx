@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductDetails } from "../redux/productSlice";
 import { useParams } from "react-router-dom";
@@ -8,6 +8,7 @@ import { addToCart, addToWishlist } from "../api";
 import { getCart } from "../redux/cartSlice";
 
 export default function ProductDetails() {
+  const [activeImage, setActiveImage] = useState(0);
   const dispatch = useDispatch();
   const { status, productDetails } = useSelector((state) => state.product);
   const { message, status: wishlistStatus } = useSelector(
@@ -67,21 +68,30 @@ export default function ProductDetails() {
           <div className="grid grid-cols-3 gap-5 py-10">
             <div className="col-span-3 md:col-span-2 flex">
               <div>
-                <div>
+                <div
+                  onClick={() => setActiveImage(0)}
+                  className={activeImage === 0 && "border-2 border-red-500"}
+                >
                   <img
                     className="m-4 w-32"
                     src={productDetails.images && productDetails.images[0]}
                     alt="bed"
                   />
                 </div>
-                <div>
+                <div
+                  onClick={() => setActiveImage(1)}
+                  className={activeImage === 1 && "border-2 border-red-500"}
+                >
                   <img
                     className="m-4 w-32"
                     src={productDetails.images && productDetails.images[1]}
                     alt="bed"
                   />
                 </div>
-                <div>
+                <div
+                  onClick={() => setActiveImage(2)}
+                  className={activeImage === 2 && "border-2 border-red-500"}
+                >
                   <img
                     className="m-4 w-32"
                     src={productDetails.images && productDetails.images[2]}
@@ -91,7 +101,9 @@ export default function ProductDetails() {
               </div>
               <div className="mx-auto">
                 <img
-                  src={productDetails.images && productDetails.images[0]}
+                  src={
+                    productDetails.images && productDetails.images[activeImage]
+                  }
                   alt="bed"
                 />
               </div>

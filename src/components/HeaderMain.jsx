@@ -1,15 +1,69 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, NavLink } from "react-router-dom";
 import Logo from "../assets/Probilia.png";
+import { getProducts } from "../redux/productSlice";
 import { getTotalItemInCart } from "../utils/payment";
 
 export default function HeaderMain() {
+  const [query, setQuery] = useState("");
   const { wishlist } = useSelector((state) => state.wishlist);
   const { isLoggedIn } = useSelector((state) => state.auth);
   const { cart } = useSelector((state) => state.cart);
+  const { products } = useSelector((state) => state.product);
+
+  const [showSearch, setShowSearch] = useState(false);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
+
+  const queriedProducts = () => {
+    if (query.length !== 0) {
+      return products.filter(
+        (product) =>
+          product.name.toLowerCase().includes(query.toLowerCase()) ||
+          product.brand.toLowerCase().includes(query.toLowerCase())
+      );
+    } else {
+      return [];
+    }
+  };
+
   return (
     <div className="bg-gray-100 fixed w-full top-0">
+      <div className="relative flex justify-center">
+        {showSearch && (
+          <div className="top-16 w-full lg:w-6/12 md:w-9/12  absolute">
+            <input
+              onChange={(e) => setQuery(e.target.value)}
+              className="w-full py-2 px-5 shadow-xl"
+              type="search"
+              placeholder="Search Products"
+              value={query}
+            />
+            <div className="bg-white shadow-xl">
+              {query.length !== 0 && queriedProducts().length === 0 && (
+                <div className="py-2 px-5">No products found!</div>
+              )}
+              {queriedProducts().map((product) => (
+                <Link
+                  onClick={() => {
+                    setShowSearch(false);
+                    setQuery("");
+                  }}
+                  to={`/products/${product._id}`}
+                >
+                  <div className="hover:bg-gray-300 px-5 py-1">
+                    {product.name} - {product.brand}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
       <nav className="flex justify-between items-center py-6 max-w-screen-xl mx-auto">
         <div className="px-2">
           <NavLink to="/">
@@ -27,7 +81,7 @@ export default function HeaderMain() {
               Home
             </NavLink>
           </div>
-          <div className="hidden md:block ">
+          <div className="hidden md:block">
             <NavLink
               activeClassName="text-red-500"
               to="/products"
@@ -36,17 +90,19 @@ export default function HeaderMain() {
               Products
             </NavLink>
           </div>
-          <div className="hidden md:block ml-4">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              fill="currentColor"
-              className="bi bi-search hover:text-red-500 transition-all"
-              viewBox="0 0 16 16"
-            >
-              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-            </svg>
+          <div className="md:block ml-4 flex items-center">
+            <button onClick={() => setShowSearch(!showSearch)}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                fill="currentColor"
+                className="bi bi-search hover:text-red-500 transition-all"
+                viewBox="0 0 16 16"
+              >
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+              </svg>
+            </button>
           </div>
         </div>
         <div className="flex">
