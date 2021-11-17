@@ -148,7 +148,11 @@ export default function Cart() {
               <button
                 onClick={handlePlaceOrder}
                 disabled={cart.products && cart.products.length === 0}
-                className="mt-8 uppercase text-sm w-full py-2 hover:bg-red-400 transition-all hover:border-red-400 bg-red-500 border-2 border-red-500 text-white"
+                className={
+                  !selectedAddress
+                    ? "mt-8 uppercase text-sm w-full py-2 bg-gray-300  border-gray-300 text-white cursor-not-allowed"
+                    : "mt-8 uppercase text-sm w-full py-2 hover:bg-red-400 transition-all hover:border-red-400 bg-red-500 border-2 border-red-500 text-white"
+                }
               >
                 Place Order
               </button>
