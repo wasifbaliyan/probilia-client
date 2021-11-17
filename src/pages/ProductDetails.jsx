@@ -120,11 +120,6 @@ export default function ProductDetails() {
               <div>
                 <h1 className="font-medium text-xl">Product Details</h1>
                 <div className="flex justify-between py-3 mt-5">
-                  <h3>ID</h3>
-                  <p>{productDetails._id}</p>
-                </div>
-                <hr />
-                <div className="flex justify-between py-3">
                   <h3>Availability</h3>
                   <p>
                     {productDetails.quantity > 0 ? "In Stock" : "Out Of Stock"}

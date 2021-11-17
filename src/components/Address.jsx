@@ -8,6 +8,12 @@ export default function Address({ address }) {
   const [openModal, setOpenModal] = useState(false);
   const dispatch = useDispatch();
   const handleRemoveAddress = async () => {
+    const confirm = window.confirm(
+      "Are you sure you want delete this address?"
+    );
+    if (!confirm) {
+      return;
+    }
     const response = await deleteAddress(address._id);
     if (response) {
       dispatch(getAddresses());
