@@ -14,7 +14,7 @@ export default function AddressSelectModal({
     dispatch(getAddresses());
   }, [dispatch]);
   return (
-    <div className="w-full h-full top-0 left-0 fixed backdrop-filter backdrop-blur-sm ">
+    <div className="w-full h-full top-0 left-0 fixed backdrop-filter backdrop-blur-sm z-10">
       <div className="flex justify-center items-center h-full z-50">
         <div className="bg-white p-10 rounded  overflow-y-scroll h-full">
           <div className="text-right">
