@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductDetails } from "../redux/productSlice";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { getDiscountedPrice } from "../utils/getDiscountedPrice";
 import { getWishlist } from "../redux/wishlistSlice";
 import { addToCart, addToWishlist } from "../api";
@@ -11,21 +11,29 @@ export default function ProductDetails() {
   const [activeImage, setActiveImage] = useState(0);
   const dispatch = useDispatch();
   const { status, productDetails } = useSelector((state) => state.product);
+  const { isLoggedIn } = useSelector((state) => state.auth);
   const { message, status: wishlistStatus } = useSelector(
     (state) => state.wishlist
   );
   const { id } = useParams();
+  const history = useHistory();
   useEffect(() => {
     dispatch(getProductDetails(id));
   }, [dispatch, id]);
 
   const handleAddToWishlist = async (id) => {
+    if (!isLoggedIn) {
+      return history.push("/login");
+    }
     const data = await addToWishlist({ productId: id });
     if (data) {
       dispatch(getWishlist());
     }
   };
   const handleAddToCart = async (id) => {
+    if (!isLoggedIn) {
+      return history.push("/login");
+    }
     const data = await addToCart({ productId: id, item: 1 });
     if (data) {
       dispatch(getCart());
@@ -70,7 +78,7 @@ export default function ProductDetails() {
               <div>
                 <div
                   onClick={() => setActiveImage(0)}
-                  className={activeImage === 0 && "border-2 border-red-500"}
+                  className={activeImage === 0 ? "border-2 border-red-500" : ""}
                 >
                   <img
                     className="m-4 w-32"
@@ -80,7 +88,7 @@ export default function ProductDetails() {
                 </div>
                 <div
                   onClick={() => setActiveImage(1)}
-                  className={activeImage === 1 && "border-2 border-red-500"}
+                  className={activeImage === 1 ? "border-2 border-red-500" : ""}
                 >
                   <img
                     className="m-4 w-32"
@@ -90,7 +98,7 @@ export default function ProductDetails() {
                 </div>
                 <div
                   onClick={() => setActiveImage(2)}
-                  className={activeImage === 2 && "border-2 border-red-500"}
+                  className={activeImage === 2 ? "border-2 border-red-500" : ""}
                 >
                   <img
                     className="m-4 w-32"

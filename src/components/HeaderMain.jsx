@@ -49,6 +49,7 @@ export default function HeaderMain() {
               )}
               {queriedProducts().map((product) => (
                 <Link
+                  key={product._id}
                   onClick={() => {
                     setShowSearch(false);
                     setQuery("");
