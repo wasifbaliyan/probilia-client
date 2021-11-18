@@ -41,7 +41,7 @@ export default function ProductDetails() {
   };
 
   return (
-    <div className="bg-white mb-16">
+    <div className="bg-white mb-16 px-2">
       {(wishlistStatus === "loading" || wishlistStatus === "failed") && (
         <p className="max-w-screen-xl mx-auto pt-16">{message}</p>
       )}
@@ -81,7 +81,7 @@ export default function ProductDetails() {
                   className={activeImage === 0 ? "border-2 border-red-500" : ""}
                 >
                   <img
-                    className="m-4 w-32"
+                    className="m-2 w-32"
                     src={productDetails.images && productDetails.images[0]}
                     alt="bed"
                   />
@@ -91,7 +91,7 @@ export default function ProductDetails() {
                   className={activeImage === 1 ? "border-2 border-red-500" : ""}
                 >
                   <img
-                    className="m-4 w-32"
+                    className="m-2 w-32"
                     src={productDetails.images && productDetails.images[1]}
                     alt="bed"
                   />
@@ -101,7 +101,7 @@ export default function ProductDetails() {
                   className={activeImage === 2 ? "border-2 border-red-500" : ""}
                 >
                   <img
-                    className="m-4 w-32"
+                    className="m-2 w-32"
                     src={productDetails.images && productDetails.images[2]}
                     alt="bed"
                   />
