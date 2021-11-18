@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { addNewAddress } from "../api";
 import { getAddresses } from "../redux/accountSlice";
@@ -7,15 +8,21 @@ export default function AddressFormModal({ setOpenModal }) {
   const [address, setAddress] = useState({});
   const dispatch = useDispatch();
   const handleAddAdress = async () => {
-    const response = await addNewAddress({ ...address });
-    if (response) {
-      dispatch(getAddresses());
+    try {
+      const response = await addNewAddress({ ...address });
+      if (response) {
+        toast.success("Address added successfully");
+
+        dispatch(getAddresses());
+      }
+      setOpenModal(false);
+    } catch (error) {
+      toast.error("Something went wrong. Please try again");
     }
-    setOpenModal(false);
   };
 
   return (
-    <div className="w-full h-full top-0 left-0 fixed backdrop-filter backdrop-blur-sm ">
+    <div className="w-full h-full top-0 left-0 fixed backdrop-filter backdrop-blur-sm z-10">
       <div className="flex justify-center items-center h-full">
         <div className="bg-white p-10 rounded w-96">
           <div className="text-right">

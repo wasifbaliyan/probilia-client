@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import AddressSelectModal from "../components/AddressSelectModal";
 import CartItem from "../components/CartItem";
 import { getCart } from "../redux/cartSlice";
@@ -9,16 +10,85 @@ import {
   getTotalMRP,
   getTotalPaidAmount,
 } from "../utils/payment";
-import { placeNewOrder } from "../api";
+import { paymentToRZP, placeNewOrder } from "../api";
 import { useHistory } from "react-router";
 
 export default function Cart() {
   const history = useHistory();
+  const { user } = useSelector((state) => state.auth);
 
   const [openAddressSelectModal, setOpenAddressSelectModal] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState("");
   const dispatch = useDispatch();
   const { cart, status } = useSelector((state) => state.cart);
+
+  function loadScript(src) {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+      document.body.appendChild(script);
+    });
+  }
+
+  async function displayRazorpay() {
+    const res = await loadScript(
+      "https://checkout.razorpay.com/v1/checkout.js"
+    );
+
+    if (!res) {
+      alert("Razorpay SDK failed to load. Are you online?");
+      return;
+    }
+
+    // creating a new order
+    const result = await paymentToRZP({
+      amount: getTotalPaidAmount(cart.products) * 100,
+    });
+
+    if (!result) {
+      alert("Server error. Are you online?");
+      return;
+    }
+
+    // Getting the order details back
+    const { amount, id: order_id, currency } = result.order;
+
+    const options = {
+      key: process.env.REACT_APP_KEY_ID, // Enter the Key ID generated from the Dashboard
+      amount: amount.toString(),
+      currency: currency,
+      name: "Probilia Inc.",
+      description: "Test Transaction",
+      image:
+        "https://res.cloudinary.com/dnboldv5r/image/upload/v1632165867/probilia/ui/Probilia_a8sxyr.png",
+      order_id: order_id,
+      handler: async function (response) {
+        await handlePlaceOrder();
+      },
+      prefill: {
+        name: user.name,
+        email: user.email,
+        contact: "9999999999",
+        method: "netbanking",
+      },
+      notes: {
+        address: "Probilia Furnitures Inc Corporate Office, New Delhi",
+      },
+      theme: {
+        color: "#F87171",
+      },
+    };
+
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+  }
+
   useEffect(() => {
     dispatch(getCart());
   }, [dispatch]);
@@ -39,22 +109,27 @@ export default function Cart() {
   }
 
   async function handlePlaceOrder() {
-    const orderData = {
-      products: cart.products,
-      payment: {
-        totalAmount: getTotalMRP(cart.products),
-        totalDiscount: getTotalDiscount(cart.products),
-        totalPaidAmount: getTotalPaidAmount(cart.products),
-      },
-      addressId: selectedAddress,
-    };
-    console.log("OrderData", orderData);
-    if (selectedAddress) {
-      const response = await placeNewOrder(orderData);
-      if (response) {
-        dispatch(getCart());
-        return history.push("/order-success");
+    try {
+      const orderData = {
+        products: cart.products,
+        payment: {
+          totalAmount: getTotalMRP(cart.products),
+          totalDiscount: getTotalDiscount(cart.products),
+          totalPaidAmount: getTotalPaidAmount(cart.products),
+        },
+        addressId: selectedAddress,
+      };
+      if (selectedAddress) {
+        const response = await placeNewOrder(orderData);
+        if (response) {
+          toast.success("Order placed successfully.");
+          dispatch(getCart());
+          return history.push("/order-success");
+        }
       }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong. Please try again");
     }
   }
 
@@ -136,7 +211,7 @@ export default function Cart() {
             </div>
 
             <div className="flex py-2 justify-between">
-              <p className=" font-medium">Total Paid</p>
+              <p className=" font-medium">Total Amt To Be Paid</p>
               <h3 className="font-medium  ml-4 ">
                 ₹
                 {cart.products &&
@@ -146,9 +221,13 @@ export default function Cart() {
             </div>
             <div>
               <button
-                onClick={handlePlaceOrder}
+                onClick={displayRazorpay}
                 disabled={cart.products && cart.products.length === 0}
-                className="mt-8 uppercase text-sm w-full py-2 hover:bg-red-400 transition-all hover:border-red-400 bg-red-500 border-2 border-red-500 text-white"
+                className={
+                  !selectedAddress
+                    ? "mt-8 uppercase text-sm w-full py-2 bg-gray-300  border-gray-300 text-white cursor-not-allowed"
+                    : "mt-8 uppercase text-sm w-full py-2 hover:bg-red-400 transition-all hover:border-red-400 bg-red-500 border-2 border-red-500 text-white"
+                }
               >
                 Place Order
               </button>

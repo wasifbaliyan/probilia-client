@@ -3,7 +3,7 @@ import HeaderMain from "./HeaderMain";
 
 export default function Header() {
   return (
-    <header>
+    <header className="relative z-50">
       <HeaderMain />
     </header>
   );

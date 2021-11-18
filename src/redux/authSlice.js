@@ -5,6 +5,7 @@ const initialState = {
   isLoggedIn: false,
   status: "idle",
   user: {},
+  errorMessage: null,
 };
 
 export const loginUser = createAsyncThunk(
@@ -47,6 +48,7 @@ export const authSlice = createSlice({
     [loginUser.fulfilled]: (state, action) => {
       state.status = "success";
       const { token, name, email } = action.payload.response;
+      state.errorMessage = null;
       localStorage.setItem(
         "login",
         JSON.stringify({ token, name, email, isLoggedIn: true })
@@ -55,6 +57,7 @@ export const authSlice = createSlice({
     },
     [loginUser.rejected]: (state, action) => {
       state.status = "failed";
+      state.errorMessage = "Incorrect email or password.";
     },
 
     [registerUser.pending]: (state, action) => {

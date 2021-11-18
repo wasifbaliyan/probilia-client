@@ -1,38 +1,61 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductDetails } from "../redux/productSlice";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { getDiscountedPrice } from "../utils/getDiscountedPrice";
 import { getWishlist } from "../redux/wishlistSlice";
 import { addToCart, addToWishlist } from "../api";
 import { getCart } from "../redux/cartSlice";
 
 export default function ProductDetails() {
+  const [activeImage, setActiveImage] = useState(0);
   const dispatch = useDispatch();
   const { status, productDetails } = useSelector((state) => state.product);
+  const { isLoggedIn } = useSelector((state) => state.auth);
   const { message, status: wishlistStatus } = useSelector(
     (state) => state.wishlist
   );
   const { id } = useParams();
+  const history = useHistory();
   useEffect(() => {
     dispatch(getProductDetails(id));
   }, [dispatch, id]);
 
   const handleAddToWishlist = async (id) => {
-    const data = await addToWishlist({ productId: id });
-    if (data) {
-      dispatch(getWishlist());
+    try {
+      if (!isLoggedIn) {
+        return history.push(`/login?from=/products/${id}`);
+      }
+      toast.info("Adding item to wishlist");
+
+      const data = await addToWishlist({ productId: id });
+      if (data) {
+        dispatch(getWishlist());
+        toast.success("Item added to wishlist");
+      }
+    } catch (error) {
+      toast.error("Something went wrong. Please try again");
     }
   };
   const handleAddToCart = async (id) => {
-    const data = await addToCart({ productId: id, item: 1 });
-    if (data) {
-      dispatch(getCart());
+    try {
+      if (!isLoggedIn) {
+        return history.push(`/login?from=/products/${id}`);
+      }
+      toast.info("Adding item to cart");
+      const data = await addToCart({ productId: id, item: 1 });
+      if (data) {
+        dispatch(getCart());
+        toast.success("Item added to cart");
+      }
+    } catch (error) {
+      toast.error("Something went wrong. Please try again");
     }
   };
 
   return (
-    <div className="bg-white mb-16">
+    <div className="bg-white mb-16 px-2">
       {(wishlistStatus === "loading" || wishlistStatus === "failed") && (
         <p className="max-w-screen-xl mx-auto pt-16">{message}</p>
       )}
@@ -67,23 +90,32 @@ export default function ProductDetails() {
           <div className="grid grid-cols-3 gap-5 py-10">
             <div className="col-span-3 md:col-span-2 flex">
               <div>
-                <div>
+                <div
+                  onClick={() => setActiveImage(0)}
+                  className={activeImage === 0 ? "border-2 border-red-500" : ""}
+                >
                   <img
-                    className="m-4 w-32"
+                    className="m-2 w-32"
                     src={productDetails.images && productDetails.images[0]}
                     alt="bed"
                   />
                 </div>
-                <div>
+                <div
+                  onClick={() => setActiveImage(1)}
+                  className={activeImage === 1 ? "border-2 border-red-500" : ""}
+                >
                   <img
-                    className="m-4 w-32"
+                    className="m-2 w-32"
                     src={productDetails.images && productDetails.images[1]}
                     alt="bed"
                   />
                 </div>
-                <div>
+                <div
+                  onClick={() => setActiveImage(2)}
+                  className={activeImage === 2 ? "border-2 border-red-500" : ""}
+                >
                   <img
-                    className="m-4 w-32"
+                    className="m-2 w-32"
                     src={productDetails.images && productDetails.images[2]}
                     alt="bed"
                   />
@@ -91,7 +123,9 @@ export default function ProductDetails() {
               </div>
               <div className="mx-auto">
                 <img
-                  src={productDetails.images && productDetails.images[0]}
+                  src={
+                    productDetails.images && productDetails.images[activeImage]
+                  }
                   alt="bed"
                 />
               </div>
@@ -100,11 +134,6 @@ export default function ProductDetails() {
               <div>
                 <h1 className="font-medium text-xl">Product Details</h1>
                 <div className="flex justify-between py-3 mt-5">
-                  <h3>ID</h3>
-                  <p>{productDetails._id}</p>
-                </div>
-                <hr />
-                <div className="flex justify-between py-3">
                   <h3>Availability</h3>
                   <p>
                     {productDetails.quantity > 0 ? "In Stock" : "Out Of Stock"}

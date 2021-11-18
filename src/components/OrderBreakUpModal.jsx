@@ -2,7 +2,7 @@ import React from "react";
 
 export default function OrderBreakUpModal({ setBreakUpModalOpen, order }) {
   return (
-    <div className="w-full h-full top-0 left-0 fixed backdrop-filter backdrop-blur-sm ">
+    <div className="w-full h-full top-0 left-0 fixed backdrop-filter backdrop-blur-sm z-10">
       <div className="flex justify-center items-center h-full">
         <div className="bg-white p-10 rounded">
           <div className="text-right">

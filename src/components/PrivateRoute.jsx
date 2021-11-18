@@ -7,6 +7,6 @@ export default function PrivateRoute({ path, ...props }) {
   if (isLoggedIn) {
     return <Route path={path} {...props} />;
   } else {
-    return <Redirect to="/login" />;
+    return <Redirect to={`/login?from=${path}`} />;
   }
 }

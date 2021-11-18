@@ -2,8 +2,11 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Switch, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Layout from "./components/Layout";
 import PrivateRoute from "./components/PrivateRoute";
+import ScrollToTop from "./components/ScrollToTop";
 import Account from "./pages/Account";
 import Cart from "./pages/Cart";
 import Home from "./pages/Home";
@@ -43,6 +46,8 @@ function App() {
 
   return (
     <Layout>
+      <ScrollToTop />
+      <ToastContainer />
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/products/:id" component={ProductDetails} />
