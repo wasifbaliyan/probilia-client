@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../redux/authSlice";
 import { useHistory } from "react-router-dom";
+import { useQuery } from "../utils/useQuery";
 
 export default function LoginForm() {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [show, setShow] = useState(false);
   const history = useHistory();
+  const query = useQuery();
   const dispatch = useDispatch();
   const { isLoggedIn, status } = useSelector((state) => state.auth);
   const handleSubmit = (e) => {
@@ -20,9 +22,13 @@ export default function LoginForm() {
   };
   useEffect(() => {
     if (isLoggedIn) {
-      history.push("/");
+      if (query.get("from")) {
+        history.push(query.get("from"));
+      } else {
+        history.push("/");
+      }
     }
-  }, [isLoggedIn, history]);
+  }, [isLoggedIn, history, query]);
 
   return (
     <>

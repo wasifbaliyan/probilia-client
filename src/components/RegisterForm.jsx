@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { registerUser } from "../redux/authSlice";
+import { useQuery } from "../utils/useQuery";
 export default function RegisterForm() {
   const [registerData, setRegisterData] = useState({
     name: "",
@@ -10,6 +11,7 @@ export default function RegisterForm() {
     confirm_password: "",
   });
   const [show, setShow] = useState(false);
+  const query = useQuery();
 
   const { isLoggedIn, status } = useSelector((state) => state.auth);
   const history = useHistory();
@@ -27,9 +29,13 @@ export default function RegisterForm() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      history.push("/");
+      if (query.get("from")) {
+        history.push(query.get("from"));
+      } else {
+        history.push("/");
+      }
     }
-  }, [isLoggedIn, history]);
+  }, [isLoggedIn, history, query]);
 
   return (
     <form onSubmit={handleSubmit}>

@@ -23,7 +23,7 @@ export default function ProductDetails() {
 
   const handleAddToWishlist = async (id) => {
     if (!isLoggedIn) {
-      return history.push("/login");
+      return history.push(`/login?from=/products/${id}`);
     }
     const data = await addToWishlist({ productId: id });
     if (data) {
@@ -32,7 +32,7 @@ export default function ProductDetails() {
   };
   const handleAddToCart = async (id) => {
     if (!isLoggedIn) {
-      return history.push("/login");
+      return history.push(`/login?from=/products/${id}`);
     }
     const data = await addToCart({ productId: id, item: 1 });
     if (data) {
