@@ -63,3 +63,11 @@ export const placeNewOrder = async (data) => {
   }
   return response.data;
 };
+
+export const paymentToRZP = async (data) => {
+  const response = await axios.post("/api/orders/payment", data);
+  if (!response.statusText === "OK") {
+    throw new Error("Something went wrong!");
+  }
+  return response.data;
+};
