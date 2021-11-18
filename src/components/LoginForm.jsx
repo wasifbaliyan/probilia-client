@@ -4,7 +4,8 @@ import { loginUser } from "../redux/authSlice";
 import { useHistory } from "react-router-dom";
 
 export default function LoginForm() {
-  const [loginData, setLoginData] = useState({});
+  const [loginData, setLoginData] = useState({ email: "", password: "" });
+  const [show, setShow] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
   const { isLoggedIn, status } = useSelector((state) => state.auth);
@@ -29,31 +30,49 @@ export default function LoginForm() {
         <div>
           <input
             value={loginData.email}
-            onChange={(e) =>
-              setLoginData({ ...loginData, [e.target.name]: e.target.value })
-            }
+            onChange={(e) => {
+              setShow(true);
+              setLoginData({ ...loginData, [e.target.name]: e.target.value });
+            }}
             className="w-full p-2 my-3 border-2 border-gray-300"
             type="text"
             placeholder="Email Address"
             name="email"
           />
+          {show && loginData.email.length === 0 && (
+            <small className="text-red-500">Email is required</small>
+          )}
         </div>
         <div>
           <input
             value={loginData.password}
-            onChange={(e) =>
-              setLoginData({ ...loginData, [e.target.name]: e.target.value })
-            }
+            onChange={(e) => {
+              setShow(true);
+              setLoginData({ ...loginData, [e.target.name]: e.target.value });
+            }}
             name="password"
             className="w-full p-2 my-3 border-2 border-gray-300"
             type="password"
             placeholder="Your Password"
           />
+          {show && loginData.password.length === 0 && (
+            <small className="text-red-500">Password is required</small>
+          )}
         </div>
-        <button className="w-full uppercase text-sm font-medium border-2 border-black bg-black text-white b py-3 transition-all my-4">
+        <button
+          disabled={
+            loginData.email.length === 0 || loginData.password.length === 0
+          }
+          className={
+            loginData.email.length === 0 || loginData.password.length === 0
+              ? "w-full uppercase text-sm font-medium border-2 border-gray-300 bg-gray-300 text-white b py-3 transition-all my-4 cursor-not-allowed"
+              : "w-full uppercase text-sm font-medium border-2 border-black bg-black text-white b py-3 transition-all my-4"
+          }
+        >
           {status === "loading" ? "Loading..." : "Login"}
         </button>
       </form>
+
       <div className="uppercase text-center">or</div>
       <button
         onClick={loginAsGuest}
