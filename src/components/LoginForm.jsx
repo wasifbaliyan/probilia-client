@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../redux/authSlice";
 import { useHistory } from "react-router-dom";
@@ -10,15 +11,22 @@ export default function LoginForm() {
   const history = useHistory();
   const query = useQuery();
   const dispatch = useDispatch();
-  const { isLoggedIn, status } = useSelector((state) => state.auth);
+  const { isLoggedIn, status, errorMessage } = useSelector(
+    (state) => state.auth
+  );
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(loginUser(loginData));
+    if (errorMessage) {
+      toast.error(errorMessage);
+    }
+    toast.success("Login successful");
   };
 
   const loginAsGuest = () => {
     setLoginData({ email: "potato@mail.com", password: "potato" });
     dispatch(loginUser({ email: "potato@mail.com", password: "potato" }));
+    toast.success("Login successful");
   };
   useEffect(() => {
     if (isLoggedIn) {

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { updateAddress } from "../api";
 import { getAddresses } from "../redux/accountSlice";
@@ -7,11 +8,16 @@ export default function EditAddressModal({ setOpenModal, recievedAddress }) {
   const [address, setAddress] = useState({ ...recievedAddress });
   const dispatch = useDispatch();
   const handleAddAdress = async () => {
-    const response = await updateAddress({ ...address });
-    if (response) {
-      dispatch(getAddresses());
+    try {
+      const response = await updateAddress({ ...address });
+      if (response) {
+        toast.success("Address updated successfully");
+        dispatch(getAddresses());
+      }
+      setOpenModal(false);
+    } catch (error) {
+      toast.error("Something went wrong. Please try again");
     }
-    setOpenModal(false);
   };
 
   return (

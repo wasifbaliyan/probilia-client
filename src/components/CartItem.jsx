@@ -1,4 +1,5 @@
 import React from "react";
+import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { addToCart, addToWishlist, removeFromCart } from "../api";
 import { getCart } from "../redux/cartSlice";
@@ -7,25 +8,40 @@ import { getWishlist } from "../redux/wishlistSlice";
 export default function CartItem({ product }) {
   const dispatch = useDispatch();
   const handleMoveToWishlist = async (id) => {
-    await addToWishlist({ productId: id });
+    try {
+      await addToWishlist({ productId: id });
+      toast.success("Item moved to wishlist");
 
-    const data = await removeFromCart({ productId: id });
-    if (data) {
-      dispatch(getCart());
-      dispatch(getWishlist());
+      const data = await removeFromCart({ productId: id });
+      if (data) {
+        dispatch(getCart());
+        dispatch(getWishlist());
+      }
+    } catch (error) {
+      toast.error("Something went wrong. Please try again");
     }
   };
 
   const handleAddProduct = async (id) => {
-    const data = await addToCart({ productId: id, item: 1 });
-    if (data) {
-      dispatch(getCart());
+    try {
+      const data = await addToCart({ productId: id, item: 1 });
+      if (data) {
+        toast.success("Item quantity updated");
+        dispatch(getCart());
+      }
+    } catch (error) {
+      toast.error("Something went wrong. Please try again");
     }
   };
   const handleRemoveProduct = async (id) => {
-    const data = await removeFromCart({ productId: id, item: 1 });
-    if (data) {
-      dispatch(getCart());
+    try {
+      const data = await removeFromCart({ productId: id, item: 1 });
+      if (data) {
+        toast.success("Item quantity updated");
+        dispatch(getCart());
+      }
+    } catch (error) {
+      toast.error("Something went wrong. Please try again");
     }
   };
 

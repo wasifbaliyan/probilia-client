@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductDetails } from "../redux/productSlice";
 import { useParams, useHistory } from "react-router-dom";
@@ -22,21 +23,34 @@ export default function ProductDetails() {
   }, [dispatch, id]);
 
   const handleAddToWishlist = async (id) => {
-    if (!isLoggedIn) {
-      return history.push(`/login?from=/products/${id}`);
-    }
-    const data = await addToWishlist({ productId: id });
-    if (data) {
-      dispatch(getWishlist());
+    try {
+      if (!isLoggedIn) {
+        return history.push(`/login?from=/products/${id}`);
+      }
+      toast.info("Adding item to wishlist");
+
+      const data = await addToWishlist({ productId: id });
+      if (data) {
+        dispatch(getWishlist());
+        toast.success("Item added to wishlist");
+      }
+    } catch (error) {
+      toast.error("Something went wrong. Please try again");
     }
   };
   const handleAddToCart = async (id) => {
-    if (!isLoggedIn) {
-      return history.push(`/login?from=/products/${id}`);
-    }
-    const data = await addToCart({ productId: id, item: 1 });
-    if (data) {
-      dispatch(getCart());
+    try {
+      if (!isLoggedIn) {
+        return history.push(`/login?from=/products/${id}`);
+      }
+      toast.info("Adding item to cart");
+      const data = await addToCart({ productId: id, item: 1 });
+      if (data) {
+        dispatch(getCart());
+        toast.success("Item added to cart");
+      }
+    } catch (error) {
+      toast.error("Something went wrong. Please try again");
     }
   };
 

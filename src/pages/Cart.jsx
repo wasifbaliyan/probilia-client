@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import AddressSelectModal from "../components/AddressSelectModal";
 import CartItem from "../components/CartItem";
 import { getCart } from "../redux/cartSlice";
@@ -121,13 +122,14 @@ export default function Cart() {
       if (selectedAddress) {
         const response = await placeNewOrder(orderData);
         if (response) {
+          toast.success("Order placed successfully.");
           dispatch(getCart());
           return history.push("/order-success");
         }
       }
     } catch (error) {
       console.log(error);
-      alert("Something went wrong.");
+      toast.error("Something went wrong. Please try again");
     }
   }
 
@@ -209,7 +211,7 @@ export default function Cart() {
             </div>
 
             <div className="flex py-2 justify-between">
-              <p className=" font-medium">Total Paid</p>
+              <p className=" font-medium">Total Amt To Be Paid</p>
               <h3 className="font-medium  ml-4 ">
                 ₹
                 {cart.products &&

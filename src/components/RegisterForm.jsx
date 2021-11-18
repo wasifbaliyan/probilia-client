@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { registerUser } from "../redux/authSlice";
@@ -13,7 +15,9 @@ export default function RegisterForm() {
   const [show, setShow] = useState(false);
   const query = useQuery();
 
-  const { isLoggedIn, status } = useSelector((state) => state.auth);
+  const { isLoggedIn, status, errorMessage } = useSelector(
+    (state) => state.auth
+  );
   const history = useHistory();
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
@@ -25,6 +29,10 @@ export default function RegisterForm() {
         password: registerData.password,
       })
     );
+    if (errorMessage) {
+      toast.error(errorMessage);
+    }
+    toast.success("User registered successfully");
   };
 
   useEffect(() => {

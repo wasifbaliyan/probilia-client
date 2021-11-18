@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { deleteAddress } from "../api";
 import { getAddresses } from "../redux/accountSlice";
@@ -8,15 +9,21 @@ export default function Address({ address }) {
   const [openModal, setOpenModal] = useState(false);
   const dispatch = useDispatch();
   const handleRemoveAddress = async () => {
-    const confirm = window.confirm(
-      "Are you sure you want delete this address?"
-    );
-    if (!confirm) {
-      return;
-    }
-    const response = await deleteAddress(address._id);
-    if (response) {
-      dispatch(getAddresses());
+    try {
+      const confirm = window.confirm(
+        "Are you sure you want delete this address?"
+      );
+      if (!confirm) {
+        return;
+      }
+      const response = await deleteAddress(address._id);
+      if (response) {
+        toast.success("Address removed successfully");
+
+        dispatch(getAddresses());
+      }
+    } catch (error) {
+      toast.error("Something went wrong. Please try again");
     }
   };
 
