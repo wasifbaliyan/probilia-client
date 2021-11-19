@@ -47,7 +47,7 @@ function App() {
   return (
     <Layout>
       <ScrollToTop />
-      <ToastContainer />
+      <ToastContainer autoClose={1500} position="top-center" />
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/products/:id" component={ProductDetails} />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { addToCart, addToWishlist, removeFromCart } from "../api";
@@ -6,18 +6,24 @@ import { getCart } from "../redux/cartSlice";
 import { getWishlist } from "../redux/wishlistSlice";
 
 export default function CartItem({ product }) {
+  const [wishStatus, setWishStatus] = useState("idle");
+
   const dispatch = useDispatch();
   const handleMoveToWishlist = async (id) => {
     try {
+      setWishStatus("loading");
+
       await addToWishlist({ productId: id });
       toast.success("Item moved to wishlist");
 
+      setWishStatus("success");
       const data = await removeFromCart({ productId: id });
       if (data) {
         dispatch(getCart());
         dispatch(getWishlist());
       }
     } catch (error) {
+      setWishStatus("failed");
       toast.error("Something went wrong. Please try again");
     }
   };
@@ -94,7 +100,7 @@ export default function CartItem({ product }) {
             onClick={() => handleMoveToWishlist(product.productId._id)}
             className="uppercase text-sm font-medium bg-black text-white hover:border-red-500 hover:text-red-500 border-black border-2  hover:bg-white py-1 px-5 transition-all"
           >
-            Move to wishlist
+            {wishStatus === "loading" ? "Moving..." : "Move to wishlist"}
           </button>
         </div>
       </div>

@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AccountDetails from "../components/AccountDetails";
 import AccountSettings from "../components/AccountSettings";
 import Addresses from "../components/Addresses";
 import Orders from "../components/Orders";
+import { useQuery } from "../utils/useQuery";
 export default function Account() {
   const [accountTab, setAccountTab] = useState("account");
+  const query = useQuery();
 
   const getActiveTab = (type) => {
     if (type === accountTab) {
@@ -13,6 +15,12 @@ export default function Account() {
       return `w-full text-left p-4 text-lg `;
     }
   };
+
+  useEffect(() => {
+    if (query.get("from")) {
+      setAccountTab("order");
+    }
+  }, [query]);
 
   const getActiveComponent = () => {
     if (accountTab === "account") {

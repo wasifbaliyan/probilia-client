@@ -15,6 +15,8 @@ import { useHistory } from "react-router";
 
 export default function Cart() {
   const history = useHistory();
+  const [orderStatus, setOrderStatus] = useState("idle");
+
   const { user } = useSelector((state) => state.auth);
 
   const [openAddressSelectModal, setOpenAddressSelectModal] = useState(false);
@@ -37,11 +39,13 @@ export default function Cart() {
   }
 
   async function displayRazorpay() {
+    setOrderStatus("loading");
     const res = await loadScript(
       "https://checkout.razorpay.com/v1/checkout.js"
     );
 
     if (!res) {
+      setOrderStatus("failed");
       alert("Razorpay SDK failed to load. Are you online?");
       return;
     }
@@ -53,6 +57,7 @@ export default function Cart() {
 
     if (!result) {
       alert("Server error. Are you online?");
+      setOrderStatus("failed");
       return;
     }
 
@@ -69,6 +74,7 @@ export default function Cart() {
         "https://res.cloudinary.com/dnboldv5r/image/upload/v1632165867/probilia/ui/Probilia_a8sxyr.png",
       order_id: order_id,
       handler: async function (response) {
+        setOrderStatus("success");
         await handlePlaceOrder();
       },
       prefill: {
@@ -229,7 +235,7 @@ export default function Cart() {
                     : "mt-8 uppercase text-sm w-full py-2 hover:bg-red-400 transition-all hover:border-red-400 bg-red-500 border-2 border-red-500 text-white"
                 }
               >
-                Place Order
+                {orderStatus === "loading" ? "Placing..." : "Place Order"}
               </button>
             </div>
           </div>
