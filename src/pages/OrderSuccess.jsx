@@ -13,7 +13,7 @@ export default function OrderSuccess() {
       <p>Your order has been placed successfully.</p>
       <div className="mt-8">
         <Link
-          to="/my-account"
+          to="/my-account?from=orders"
           className="px-5 uppercase text-sm w-full py-2 hover:bg-red-400 transition-all hover:border-red-400 bg-red-500 border-2 border-red-500 text-white"
         >
           View Orders

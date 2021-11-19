@@ -9,6 +9,8 @@ import { addToCart, addToWishlist } from "../api";
 import { getCart } from "../redux/cartSlice";
 
 export default function ProductDetails() {
+  const [wishStatus, setWishStatus] = useState("idle");
+  const [cartStatus, setCartStatus] = useState("idle");
   const [activeImage, setActiveImage] = useState(0);
   const dispatch = useDispatch();
   const { status, productDetails } = useSelector((state) => state.product);
@@ -24,32 +26,38 @@ export default function ProductDetails() {
 
   const handleAddToWishlist = async (id) => {
     try {
+      setWishStatus("loading");
       if (!isLoggedIn) {
         return history.push(`/login?from=/products/${id}`);
       }
-      toast.info("Adding item to wishlist");
 
       const data = await addToWishlist({ productId: id });
       if (data) {
+        setWishStatus("success");
         dispatch(getWishlist());
         toast.success("Item added to wishlist");
       }
     } catch (error) {
+      setWishStatus("failed");
       toast.error("Something went wrong. Please try again");
     }
   };
   const handleAddToCart = async (id) => {
     try {
+      setCartStatus("loading");
       if (!isLoggedIn) {
         return history.push(`/login?from=/products/${id}`);
       }
-      toast.info("Adding item to cart");
       const data = await addToCart({ productId: id, item: 1 });
       if (data) {
+        setCartStatus("success");
+
         dispatch(getCart());
         toast.success("Item added to cart");
       }
     } catch (error) {
+      setCartStatus("failed");
+
       toast.error("Something went wrong. Please try again");
     }
   };
@@ -154,7 +162,7 @@ export default function ProductDetails() {
                     onClick={() => handleAddToCart(productDetails._id)}
                     className="w-full uppercase text-sm font-medium hover:bg-red-500 hover:border-red-500 bg-black border-2 border-black text-white py-3 px-10 transition-all"
                   >
-                    Add to cart
+                    {cartStatus === "loading" ? "adding..." : "add to cart"}
                   </button>
                 </div>
                 <div className="my-3">
@@ -162,7 +170,7 @@ export default function ProductDetails() {
                     onClick={() => handleAddToWishlist(productDetails._id)}
                     className="w-full uppercase text-sm font-medium hover:text-red-500 hover:border-red-500 bg-white text-black border-black border-2  py-3 px-10 transition-all"
                   >
-                    add to wishlist
+                    {wishStatus === "loading" ? "adding..." : "add to wishlist"}
                   </button>
                 </div>
               </div>
