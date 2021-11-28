@@ -6,6 +6,7 @@ import { getCart } from "../redux/cartSlice";
 import { getWishlist } from "../redux/wishlistSlice";
 import { getDiscountedPrice } from "../utils/getDiscountedPrice";
 import { useHistory } from "react-router";
+import SmallSpinner from "./SmallSpinner";
 
 export default function WishlistItem({ product }) {
   const [wishStatus, setWishStatus] = useState("idle");
@@ -66,7 +67,7 @@ export default function WishlistItem({ product }) {
           onClick={() => handleMoveToCart(product._id)}
           className="w-full uppercase text-sm font-medium hover:bg-red-500 hover:border-red-500 bg-black border-2 border-black text-white py-3 px-10 transition-all"
         >
-          {cartStatus === "loading" ? "Moving..." : "Move to cart"}
+          {cartStatus === "loading" ? <SmallSpinner /> : "Move to cart"}
         </button>
       </div>
       <div className="my-3">
@@ -74,7 +75,7 @@ export default function WishlistItem({ product }) {
           onClick={() => handleRemoveFromWishlist(product._id)}
           className="w-full uppercase text-sm font-medium hover:text-red-500 hover:border-red-500 bg-white text-black border-black border-2  py-3 px-10 transition-all"
         >
-          {wishStatus === "loading" ? "Removing..." : "Remove Item"}
+          {wishStatus === "loading" ? <SmallSpinner /> : "Remove Item"}
         </button>
       </div>
     </figure>

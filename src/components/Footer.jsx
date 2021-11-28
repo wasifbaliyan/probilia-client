@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Footer() {
+  const [email, setEmail] = useState("");
+  const [show, setShow] = useState(false);
+
   return (
     <>
       <div className="max-w-screen-xl mx-auto py-14">
@@ -36,13 +39,29 @@ export default function Footer() {
                   Stay in the know of our latest arrivals, receive inspiration
                   and styling tips along with special offers!
                 </h3>
-                <div className="w-full pt-6 pb-14">
-                  <input
-                    className="w-2/3 py-2 px-3 border-2  border-gray-500"
-                    type="text"
-                    placeholder="Enter your email address"
-                  />
-                </div>
+                {show && (
+                  <div className="w-full pt-6 pb-14 text-lg text-green-800">
+                    Thanks for subscribing, We'll keep you updated!
+                  </div>
+                )}
+                {!show && (
+                  <div className="w-full pt-6 pb-14">
+                    <input
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="w-2/3 py-2 px-3 border-2  border-gray-500"
+                      type="email"
+                      placeholder="Enter your email address"
+                    />
+                    {email.length > 0 && (
+                      <button
+                        className="uppercase text-sm font-medium hover:bg-red-500 bg-black text-white py-3 px-10 transition-all"
+                        onClick={() => setShow(true)}
+                      >
+                        SUBSCRIBE
+                      </button>
+                    )}
+                  </div>
+                )}
               </div>
               <div className="col-span-3 md:col-span-1 sm:col-span-3">
                 <div className="h-full flex justify-between items-center">

@@ -7,6 +7,8 @@ import { getDiscountedPrice } from "../utils/getDiscountedPrice";
 import { getWishlist } from "../redux/wishlistSlice";
 import { addToCart, addToWishlist } from "../api";
 import { getCart } from "../redux/cartSlice";
+import Spinner from "../components/Spinner";
+import SmallSpinner from "../components/SmallSpinner";
 
 export default function ProductDetails() {
   const [wishStatus, setWishStatus] = useState("idle");
@@ -67,9 +69,7 @@ export default function ProductDetails() {
       {(wishlistStatus === "loading" || wishlistStatus === "failed") && (
         <p className="max-w-screen-xl mx-auto pt-16">{message}</p>
       )}
-      {status === "loading" && (
-        <p className="max-w-screen-xl mx-auto pt-16">Loading...</p>
-      )}
+      {status === "loading" && <Spinner />}
       {status === "success" && (
         <div className="max-w-screen-xl mx-auto">
           <div className="flex justify-between pt-10 mb-5">
@@ -162,7 +162,11 @@ export default function ProductDetails() {
                     onClick={() => handleAddToCart(productDetails._id)}
                     className="w-full uppercase text-sm font-medium hover:bg-red-500 hover:border-red-500 bg-black border-2 border-black text-white py-3 px-10 transition-all"
                   >
-                    {cartStatus === "loading" ? "adding..." : "add to cart"}
+                    {cartStatus === "loading" ? (
+                      <SmallSpinner />
+                    ) : (
+                      "add to cart"
+                    )}
                   </button>
                 </div>
                 <div className="my-3">
@@ -170,7 +174,11 @@ export default function ProductDetails() {
                     onClick={() => handleAddToWishlist(productDetails._id)}
                     className="w-full uppercase text-sm font-medium hover:text-red-500 hover:border-red-500 bg-white text-black border-black border-2  py-3 px-10 transition-all"
                   >
-                    {wishStatus === "loading" ? "adding..." : "add to wishlist"}
+                    {wishStatus === "loading" ? (
+                      <SmallSpinner />
+                    ) : (
+                      "add to wishlist"
+                    )}
                   </button>
                 </div>
               </div>
