@@ -12,6 +12,8 @@ import {
 } from "../utils/payment";
 import { paymentToRZP, placeNewOrder } from "../api";
 import { useHistory } from "react-router";
+import Spinner from "../components/Spinner";
+import SmallSpinner from "../components/SmallSpinner";
 
 export default function Cart() {
   const history = useHistory();
@@ -145,7 +147,7 @@ export default function Cart() {
         My Cart
       </h1>
       <hr />
-      {status === "loading" && <div>Loading...</div>}
+      {status === "loading" && <Spinner />}
       {status === "success" && cart.products.length === 0 && (
         <div className="text-center">No products in the cart.</div>
       )}
@@ -235,7 +237,7 @@ export default function Cart() {
                     : "mt-8 uppercase text-sm w-full py-2 hover:bg-red-400 transition-all hover:border-red-400 bg-red-500 border-2 border-red-500 text-white"
                 }
               >
-                {orderStatus === "loading" ? "Placing..." : "Place Order"}
+                {orderStatus === "loading" ? <SmallSpinner /> : "Place Order"}
               </button>
             </div>
           </div>

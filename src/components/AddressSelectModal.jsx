@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAddresses } from "../redux/accountSlice";
 import Address from "./Address";
+import Spinner from "./Spinner";
 
 export default function AddressSelectModal({
   setOpenAddressSelectModal,
@@ -29,7 +30,7 @@ export default function AddressSelectModal({
             Select Address
           </h1>
           <div>
-            {status === "loading" && "Loading..."}
+            {status === "loading" && <Spinner />}
             {status === "success" &&
               addresses.map((address) => (
                 <div key={address._id} className="flex">

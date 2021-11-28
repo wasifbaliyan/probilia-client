@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { addToCart, addToWishlist, removeFromCart } from "../api";
 import { getCart } from "../redux/cartSlice";
 import { getWishlist } from "../redux/wishlistSlice";
+import SmallSpinner from "./SmallSpinner";
 
 export default function CartItem({ product }) {
   const [wishStatus, setWishStatus] = useState("idle");
@@ -100,7 +101,7 @@ export default function CartItem({ product }) {
             onClick={() => handleMoveToWishlist(product.productId._id)}
             className="uppercase text-sm font-medium bg-black text-white hover:border-red-500 hover:text-red-500 border-black border-2  hover:bg-white py-1 px-5 transition-all"
           >
-            {wishStatus === "loading" ? "Moving..." : "Move to wishlist"}
+            {wishStatus === "loading" ? <SmallSpinner /> : "Move to wishlist"}
           </button>
         </div>
       </div>

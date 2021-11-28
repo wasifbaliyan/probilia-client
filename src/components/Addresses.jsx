@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAddresses } from "../redux/accountSlice";
 import Address from "./Address";
 import AddressFormModal from "./AddressFormModal";
+import Spinner from "./Spinner";
 
 export default function Addresses() {
   const [openModal, setOpenModal] = useState(false);
@@ -24,7 +25,7 @@ export default function Addresses() {
         Add new address
       </button>
       <div>
-        {status === "loading" && "Loading..."}
+        {status === "loading" && <Spinner />}
         {status === "success" &&
           addresses.map((address) => (
             <Address address={address} key={address._id} />

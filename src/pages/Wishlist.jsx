@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import WishlistItem from "../components/WishlistItem";
 import { useDispatch, useSelector } from "react-redux";
 import { getWishlist } from "../redux/wishlistSlice";
+import Spinner from "../components/Spinner";
 export default function Wishlist() {
   const dispatch = useDispatch();
   const { status, wishlist } = useSelector((state) => state.wishlist);
@@ -13,7 +14,7 @@ export default function Wishlist() {
 
   return (
     <div className="max-w-screen-xl mx-auto pb-10 pt-10">
-      {status === "loading" && "Loading..."}
+      {status === "loading" && <Spinner />}
       {status === "success" && (
         <div>
           <h1 className="uppercase italic text-3xl font-medium text-center py-10">
