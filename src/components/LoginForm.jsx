@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../redux/authSlice";
 import { useHistory } from "react-router-dom";
 import { useQuery } from "../utils/useQuery";
+import SmallSpinner from "../components/SmallSpinner";
 
 export default function LoginForm() {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
@@ -83,7 +84,7 @@ export default function LoginForm() {
               : "w-full uppercase text-sm font-medium border-2 border-black bg-black text-white b py-3 transition-all my-4"
           }
         >
-          {status === "loading" ? "Loading..." : "Login"}
+          {status === "loading" ? <SmallSpinner /> : "Login"}
         </button>
       </form>
 

@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { registerUser } from "../redux/authSlice";
 import { useQuery } from "../utils/useQuery";
+import SmallSpinner from "./SmallSpinner";
 export default function RegisterForm() {
   const [registerData, setRegisterData] = useState({
     name: "",
@@ -129,7 +130,7 @@ export default function RegisterForm() {
             : "w-full uppercase text-sm font-medium border-2 border-black bg-black text-white b py-3 transition-all my-4"
         }
       >
-        {status === "loading" ? "Registering..." : "Register"}
+        {status === "loading" ? <SmallSpinner /> : "Register"}
       </button>
     </form>
   );
