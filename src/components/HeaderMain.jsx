@@ -37,6 +37,7 @@ export default function HeaderMain() {
         {showSearch && (
           <div className="top-16 w-full lg:w-6/12 md:w-9/12  absolute">
             <input
+              autoFocus
               onChange={(e) => setQuery(e.target.value)}
               className="w-full py-2 px-5 shadow-xl"
               type="search"
